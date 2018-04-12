@@ -2,6 +2,9 @@
 
 fit Excess Relative Risk model
 
+* [Introduction](https://github.com/fbr600/rERR#introduction)
+* [Installing](https://github.com/fbr600/rERR#installing)
+
 ## Introduction
 
 In radiation epidemiology, ERR models are used to analyze dose-response relationships for event rate data.
