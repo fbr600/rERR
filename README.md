@@ -4,6 +4,10 @@ fit Excess Relative Risk model
 
 * [Introduction](https://github.com/fbr600/rERR#introduction)
 * [Installing](https://github.com/fbr600/rERR#installing)
+* [Model Specification](https://github.com/fbr600/rERR#model-specification)
+* [Examples](https://github.com/fbr600/rERR#examples)
+  + [Using an event format data set as input cohort](https://github.com/fbr600/rERR#using-an-event-format-data-set-as-input-cohort)
+  + [Using an wide format data set as input cohort](https://github.com/fbr600/rERR#using-an-wide-format-data-set-as-input-cohort)
 
 ## Introduction
 
