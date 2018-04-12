@@ -14,7 +14,7 @@ Cox proportional hazards model, available in most standard statistical packages 
 
 One model of particular interest, especially in radiation environmental and occupational epidemiology is the ERR model, 
 
-![](http://mathurl.com/render.cgi?%5CPhi%28x%2C%5Cbeta%29%20%3D%201+%5Cbeta%20f%28x%29%5Cnocache) 
+![](http://mathurl.com/y87sutzb.png)
 
 ### Prerequisites
 
