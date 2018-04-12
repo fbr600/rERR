@@ -18,9 +18,9 @@ time a new risk set is defined, including the index case and all the controls th
 designs are usually related to the 
 Cox proportional hazards model, 
 
-![](http://mathurl.com/y7gp2qz5.png)
+![](http://mathurl.com/y7gp2qz5.png)   
 
-where ![](http://mathurl.com/y7ekq4k8.png) is the vector of explanatory variables.
+where ![](http://mathurl.com/y7ekq4k8.png) is the vector of explanatory variables,
 
 is available in most standard statistical packages but limited to log-linear model (except Epicure,(Preston et al., 1993)).
 
