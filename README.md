@@ -8,6 +8,7 @@ fit Excess Relative Risk model
 * [Examples](https://github.com/fbr600/rERR#examples)
   + [Using an event format data set as input cohort](https://github.com/fbr600/rERR#using-an-event-format-data-set-as-input-cohort)
   + [Using a wide format data set as input cohort](https://github.com/fbr600/rERR#using-a-wide-format-data-set-as-input-cohort)
+  + [Save time in multi analysis of the same data set](https://github.com/fbr600/rERR/blob/master/README.md#save-time-in-multi-analysis-  of-the-same-data-set)
 
 ## Introduction
 
