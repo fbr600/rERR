@@ -21,9 +21,12 @@ f_exclusion <- function(formula,data,lag)
   # apply the exclusion criterium
   entry <- entry + lag
   
+  # set the entry time to entry+lag
+  data[,which(names(data)==entry_name)] <- entry
+  
   # select the rows that accomplish the condition
-  rows_to_keep <- which(entry<exit)
-  data <- data[rows_to_keep,]
+  rows_to_keep              <- which(entry<exit)
+  data                      <- data[rows_to_keep,]
   attr(data,"rows_to_keep") <- rows_to_keep
   # return data set
   return(data)

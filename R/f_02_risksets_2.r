@@ -101,7 +101,7 @@ f_risksets<-function(formula,data,lag,id_name,time_name)
   failtimes  <- v_exit[nrow_cases]
   id_cases   <- v_id[nrow_cases]
   
-  rsets <- list()
+  rsets        <- list()
   nrows_cases_ <- vector()
   for(i in 1:length(failtimes))
   {
@@ -110,9 +110,9 @@ f_risksets<-function(formula,data,lag,id_name,time_name)
     dt <- dt[which(dt[,7] <= failtimes[i]-lag),]
     names(dt)[c(2,4:6,7)] <- c("id","entry","exit","outcome","time")
     
-    dt <- dt %>% group_by(id) %>% dplyr::summarize(row=max(n_row))
+    dt              <- dt %>% group_by(id) %>% dplyr::summarize(row=max(n_row))
     nrows_cases_[i] <- dt$row[which(dt$id==id_cases[i])]  
-    dt$IN <- T
+    dt$IN           <- T
     if(exists("formula_strat"))
        for(j in 1:length(strata_vars))
        {

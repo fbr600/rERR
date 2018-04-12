@@ -12,15 +12,15 @@
 f_fit_linERR_all <- function(formula,data,id_name,time_name,lag)
 {
   # keep just model vars and expand if categorical
-  dt2 <- f_to_model_data(formula,data,id_name,time_name)
+  dt2           <- f_to_model_data(formula,data,id_name,time_name)
   n_lin_vars    <- attr(dt2,"n_lin_vars")
   n_loglin_vars <- attr(dt2,"n_loglin_vars")
   
   # risksets
-  rsets <- f_risksets(formula,data=dt2,lag,id_name,time_name)
+  rsets         <- f_risksets(formula,data=dt2,lag,id_name,time_name)
   
   # fit the model
-  fit <- f_fit_linERR(formula,data=dt2,rsets,n_lin_vars,n_loglin_vars,id_name,time_name)
+  fit           <- f_fit_linERR(formula,data=dt2,rsets,n_lin_vars,n_loglin_vars,id_name,time_name)
   
   return(fit)
 }

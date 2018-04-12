@@ -52,8 +52,8 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
   #   rsets[[n]] list of n_row that have all the values for the risk set of the nth failtime
   
   # initial condition: 0.1 for all
-  beta <- rep(0.1,n_lin_vars+n_loglin_vars)
-  beta <- as.list(beta)
+  beta        <- rep(0.1,n_lin_vars+n_loglin_vars)
+  beta        <- as.list(beta)
   names(beta) <- paste0("x",1:length(beta))
   
   # function to set the number of arguments to the likelihood function
@@ -72,11 +72,11 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
     {
       beta3[i] <- eval(parse(text = paste0("x", i)))
     }
-    beta_2 <- as.list(beta3)
-    beta_2 <- unlist(lapply(beta_2, as.numeric))
+    beta_2     <- as.list(beta3)
+    beta_2     <- unlist(lapply(beta_2, as.numeric))
     constr_ind <- as.integer(0)
-    res <- .Call("llhood_linear_v3",beta_2,length(beta_2),length(rsets),
-                 rsets,nrseti,data,nrow_cases,n_lin_vars,n_loglin_vars,constr_ind)
+    res        <- .Call("llhood_linear_v3",beta_2,length(beta_2),length(rsets),
+                        rsets,nrseti,data,nrow_cases,n_lin_vars,n_loglin_vars,constr_ind)
     cons <<- res[length(res)]
     res  <- res[-length(res)]
     res1 <- log(res)
@@ -100,8 +100,8 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
   for(i in 0:(n_lin_vars-1))
   {
     beta_2 <- unlist(lapply(beta,as.numeric))
-    res <- .Call("llhood_linear_v3",beta_2,length(beta_2),length(rsets),
-                 rsets,nrseti,data,nrow_cases,n_lin_vars,n_loglin_vars,as.integer(i))
+    res    <- .Call("llhood_linear_v3",beta_2,length(beta_2),length(rsets),
+                    rsets,nrseti,data,nrow_cases,n_lin_vars,n_loglin_vars,as.integer(i))
     constr[i+1] <- res[length(res)]
   }
   
@@ -118,37 +118,36 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
   res <- mle(minuslogl = p.est,start = beta,method = "L-BFGS-B",lower=llim*reduction)
   
   # summary
-  names <- names(data)[8:(8+n_lin_vars+n_loglin_vars-1)]
+  names                       <- names(data)[8:(8+n_lin_vars+n_loglin_vars-1)]
   names(attr(res,"coef"))     <- names
   names(attr(res,"fullcoef")) <- names
-  attr(res,"desc") <- list(desc=list(n_events=length(rsets),
-                                     n_observations=length(data$n_pe[which(data$n_pe!=0)]),
-                                     n_subjects=length(data$n_pe[which(data$n_pe==1)])))
-  
+  attr(res,"desc")            <- list(desc=list(n_events=length(rsets),
+                                      n_observations=length(data$n_pe[which(data$n_pe!=0)]),
+                                      n_subjects=length(data$n_pe[which(data$n_pe==1)])))
   
   # lrt confidence interval: only for linear varaibles
   if(n_lin_vars > 0)
   {
-    lrt_ci_mat <- matrix(nrow=n_lin_vars,ncol=2)
+    lrt_ci_mat           <- matrix(nrow=n_lin_vars,ncol=2)
     rownames(lrt_ci_mat) <- names[1:n_lin_vars]
-    colnames(lrt_ci_mat)  <- c("lower .95","upper .95")
+    colnames(lrt_ci_mat) <- c("lower .95","upper .95")
     
     for(i in 1:n_lin_vars)
     {
       attr(res,"details")
       
       beta_good <- attr(res,"coef")
-      llik  <- attr(res,"details")$value
-      prob <- .95
-      llim <- constr*.999
+      llik      <- attr(res,"details")$value
+      prob      <- .95
+      llim      <- constr*.999
       g <- function(x)
       {
-        aux <- beta_good
-        aux <- as.list(aux)
-        aux[[i]] <- x
+        aux        <- beta_good
+        aux        <- as.list(aux)
+        aux[[i]]   <- x
         names(aux) <- paste0("x",1:length(aux))
         
-        y <- do.call(p.est,aux)
+        y          <- do.call(p.est,aux)
         
         return(-y + llik + qchisq(prob, 1)/2)
       }
@@ -170,17 +169,17 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
       lrt_ci_mat[i,2] <- l2
     }
     attr(res,"lrt_ci") <- lrt_ci_mat
-    sum <- summary(res)
-    coef <- attr(sum,"coef")[1:n_lin_vars,1]
-    se   <- attr(sum,"coef")[1:n_lin_vars,2]
+    sum                <- summary(res)
+    coef               <- attr(sum,"coef")[1:n_lin_vars,1]
+    se                 <- attr(sum,"coef")[1:n_lin_vars,2]
     
-    coef_mat <- matrix(nrow=n_lin_vars,ncol=4)
+    coef_mat           <- matrix(nrow=n_lin_vars,ncol=4)
     rownames(coef_mat) <- names[1:n_lin_vars]
     colnames(coef_mat) <- c("coef","se(coef)","z","Pr(>|z|)")
-    coef_mat[,1] <- coef
-    coef_mat[,2] <- se
-    coef_mat[,3] <- coef_mat[,1]/coef_mat[,2]
-    coef_mat[,4] <- 2*(1-pnorm(abs(coef_mat[,3])))
+    coef_mat[,1]       <- coef
+    coef_mat[,2]       <- se
+    coef_mat[,3]       <- coef_mat[,1]/coef_mat[,2]
+    coef_mat[,4]       <- 2*(1-pnorm(abs(coef_mat[,3])))
     
     attr(res,"lin_coef") <- coef_mat
   }
@@ -192,7 +191,7 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
     coef <- attr(sum,"coef")[(n_lin_vars+1):(n_lin_vars+n_loglin_vars),1]
     se   <- attr(sum,"coef")[(n_lin_vars+1):(n_lin_vars+n_loglin_vars),2]
     
-    coef_mat <- matrix(nrow=n_loglin_vars,ncol=5)
+    coef_mat           <- matrix(nrow=n_loglin_vars,ncol=5)
     rownames(coef_mat) <- names[(n_lin_vars+1):(n_lin_vars+n_loglin_vars)]
     colnames(coef_mat) <- c("coef","exp(coef)","se(coef)","z","Pr(>|z|)")
     
@@ -202,13 +201,13 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
     coef_mat[,4] <- coef_mat[,1]/coef_mat[,3]
     coef_mat[,5] <- 2*(1-pnorm(abs(coef_mat[,4])))
     
-    conf_mat <- matrix(nrow=n_loglin_vars,ncol=4)
+    conf_mat           <- matrix(nrow=n_loglin_vars,ncol=4)
     colnames(conf_mat) <- c("exp(coef)","exp(-coef)","lower .95","upper .95")
     rownames(conf_mat) <- names[(n_lin_vars+1):(n_lin_vars+n_loglin_vars)]
-    conf_mat[,1] <- exp(coef)
-    conf_mat[,2] <- exp(-coef)
-    conf_mat[,3] <- exp(coef_mat[,1]-qnorm(0.975,mean=0,sd=1)*se)
-    conf_mat[,4] <- exp(coef_mat[,1]+qnorm(0.975,mean=0,sd=1)*se)
+    conf_mat[,1]       <- exp(coef)
+    conf_mat[,2]       <- exp(-coef)
+    conf_mat[,3]       <- exp(coef_mat[,1]-qnorm(0.975,mean=0,sd=1)*se)
+    conf_mat[,4]       <- exp(coef_mat[,1]+qnorm(0.975,mean=0,sd=1)*se)
     
     attr(res,"wald_ci")     <- conf_mat
     attr(res,"loglin_coef") <- coef_mat

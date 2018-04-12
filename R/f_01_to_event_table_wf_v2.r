@@ -41,7 +41,7 @@ f_to_event_table_wf_v2 <- function(id,start,stop,outcome,
   # new dataset
   mat <- matrix(nrow=n,ncol=n_cols)
   
-  mat <- as.data.frame(mat)
+  mat     <- as.data.frame(mat)
   mat[,1] <- rep(eval(parse(text=paste0(call$data,"$",id))),each=n_exp_years)
   mat[,2] <- rep(start_,each=n_exp_years)
   mat[,3] <- rep(stop_,each=n_exp_years)
@@ -74,25 +74,25 @@ f_to_event_table_wf_v2 <- function(id,start,stop,outcome,
   
   # set a py ind within each person
   mat$id_ <- unlist(mat[,1])
-  mat <- mat %>%
+  mat     <- mat         %>%
     dplyr::group_by(id_) %>%
     dplyr::mutate(n_pe=1:length(eval(id_)))
-  mat <- mat[,-which(names(mat)=="id_")]
+  mat     <- mat[,-which(names(mat)=="id_")]
   
   # add the exit event as a row for each subject
-  dt <- mat[which(mat$n_pe==1),]
+  dt      <- mat[which(mat$n_pe==1),]
   dt$time <- dt[,3]
   dt[,4]  <- outcome_
   dt$n_pe <- 0
   dt$dose <- 0
   
   attributes(dt) <- NULL
-  dt <- as.data.frame(dt)
-  names(dt) <- names(mat)
+  dt             <- as.data.frame(dt)
+  names(dt)      <- names(mat)
   
   attributes(mat) <- NULL
-  mat <- as.data.frame(mat)
-  names(mat) <- names(dt)
+  mat             <- as.data.frame(mat)
+  names(mat)      <- names(dt)
   
   # the counter n_pe goes 1:number of years, and 0 is the relative to exitage 1 is the row of entryage
   mat <- rbind(mat,dt)
@@ -107,15 +107,15 @@ f_to_event_table_wf_v2 <- function(id,start,stop,outcome,
   mat <- mat[which(mat$n_pe>0),]
   
   mat$id_ <- unlist(mat[,1])
-  mat <- mat %>%
+  mat     <- mat         %>%
     dplyr::group_by(id_) %>%
     dplyr::mutate(n_pe=1:length(eval(id_)))
-  mat <- mat[,-which(names(mat)=="id_")]
-  mat <- rbind(mat,dt0)
+  mat     <- mat[,-which(names(mat)=="id_")]
+  mat     <- rbind(mat,dt0)
   
   # arrange rows
   mat$id_ <- unlist(mat[,1])
-  mat <- dplyr::arrange(mat,id_,time)
+  mat     <- dplyr::arrange(mat,id_,time)
   
   # add the cumulative exposure
   mat <- mat %>%
@@ -123,13 +123,13 @@ f_to_event_table_wf_v2 <- function(id,start,stop,outcome,
     dplyr::mutate(dose_cum=cumsum(dose))
   mat <- mat[,-which(names(mat)=="id_")]
   
-  a <- plyr::count(mat[,1])
+  a       <- plyr::count(mat[,1])
   mat$id1 <- unlist(lapply(seq_along(1:n_sub),function(x) rep(x,each=a$freq[x])))
   
   # remove innecessary attributes
   attributes(mat) <- NULL
-  mat <- as.data.frame(mat)
-  names(mat) <- names(dt)
+  mat             <- as.data.frame(mat)
+  names(mat)      <- names(dt)
   
   return(mat)
 }

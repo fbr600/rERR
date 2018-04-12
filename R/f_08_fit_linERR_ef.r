@@ -33,7 +33,7 @@
 f_fit_linERR_ef <- function (formula, data, id_name, dose_name, time_name, covars_names,lag,exclusion_done=F) 
 {
   if(!exclusion_done)
-    data           <- f_exclusion(formula,data,lag)
+    data        <- f_exclusion(formula,data,lag)
   
   form          <- f_parse_formula(formula)
   entry_name    <- as.character(form$Surv$entry)

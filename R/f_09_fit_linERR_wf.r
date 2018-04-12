@@ -48,9 +48,9 @@ f_fit_linERR_wf <- function (formula, data, id_name, doses,times, covars,lag,exc
   entry_name   <- as.character(form$Surv$entry)
   exit_name    <- as.character(form$Surv$exit)
   outcome_name <- as.character(form$Surv$outcome)
-  dt1 <- f_to_event_table_wf_v2(id = id_name, start = entry_name, 
-                                stop = exit_name, outcome = outcome_name, data = data, 
-                                doses = doses, times = times, covars = covars)
+  dt1          <- f_to_event_table_wf_v2(id = id_name, start = entry_name, 
+                                         stop = exit_name, outcome = outcome_name, data = data, 
+                                         doses = doses, times = times, covars = covars)
   
   dt2           <- f_to_model_data(formula, data=dt1, id_name, time_name="time")
   n_lin_vars    <- attr(dt2, "n_lin_vars")

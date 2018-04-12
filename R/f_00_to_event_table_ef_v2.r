@@ -34,29 +34,29 @@ f_to_event_table_ef_v2 <- function(id,start,stop,outcome,data,times,doses,covars
   
   # create the n_pe
   data$id_ <- eval(parse(text=paste0(call$data,"$",id_name)))
-  data <- data %>%
-    group_by(id_) %>%
+  data     <- data    %>%
+    group_by(id_)     %>%
     dplyr::mutate(n_pe=1:length(id_))
   
   # add the exit event with the outcome at this event
-  dt <- data[which(data$n_pe==1),]
-  dt$n_pe <- 0
-  dt[,which(names(dt)==dose_name)] <- 0
-  dt[,which(names(dt)==time_name)] <- eval(parse(text=paste0("dt$",stop_name)))
+  dt                                 <- data[which(data$n_pe==1),]
+  dt$n_pe                            <- 0
+  dt[,which(names(dt)==dose_name)]   <- 0
+  dt[,which(names(dt)==time_name)]   <- eval(parse(text=paste0("dt$",stop_name)))
   data[,which(names(data)==outcome)] <- 0
-  data <- rbind(data,dt)
-  data$time_aux <- eval(parse(text=paste0("data$",time_name)))
-  data <- arrange(data,id_,time_aux)
-  data <- data[,-dim(data)[2]]
+  data                               <- rbind(data,dt)
+  data$time_aux                      <- eval(parse(text=paste0("data$",time_name)))
+  data                               <- arrange(data,id_,time_aux)
+  data                               <- data[,-dim(data)[2]]
   
   # create the dose_cum
-  dose_num  <- eval(parse(text=paste0("data$",dose_name)))
+  dose_num      <- eval(parse(text=paste0("data$",dose_name)))
   data$dose_num <- dose_num
-  data <- data %>%
-    group_by(id_) %>%
+  data          <- data %>%
+    group_by(id_)       %>%
     dplyr::mutate(dose_cum=cumsum(dose_num))
   
-  a <- plyr::count(data$id_)
+  a        <- plyr::count(data$id_)
   data$id1 <- unlist(lapply(seq_along(1:dim(dt)[1]),function(x) rep(x,each=a$freq[x])))
   
   return(data)

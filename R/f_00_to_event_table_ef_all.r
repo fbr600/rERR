@@ -14,13 +14,13 @@
 #' @export
 f_to_event_table_ef_all <- function(formula,data,id_name,dose_name,time_name,covars_names)
 {
-  form <- f_parse_formula(formula)
+  form          <- f_parse_formula(formula)
   entry_name    <- as.character(form$Surv$entry)
   exit_name     <- as.character(form$Surv$exit)
   outcome_name  <- as.character(form$Surv$outcome)
 
-  dt1 <- f_to_event_table_ef_v2(id = id_name,start=entry_name,stop=exit_name,outcome=outcome_name,
-                                data = data,doses = dose_name,times = time_name,covars = covars_names)
+  dt1           <- f_to_event_table_ef_v2(id = id_name,start=entry_name,stop=exit_name,outcome=outcome_name,
+                                          data = data,doses = dose_name,times = time_name,covars = covars_names)
 
   return(dt1)
 }

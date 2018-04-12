@@ -11,11 +11,11 @@ f_parse_formula <- function(formula)
   formula_sv <- formula[[2]]
 
   # remove all pre existent variables
-  if(exists("formula_lin")) rm(formula_lin)
+  if(exists("formula_lin"))    rm(formula_lin)
   if(exists("formula_loglin")) rm(formula_loglin)
-  if(exists("formula_strat")) rm(formula_strat)
+  if(exists("formula_strat"))  rm(formula_strat)
 
-  if(exists("lin_vars")) rm(lin_vars)
+  if(exists("lin_vars"))    rm(lin_vars)
   if(exists("loglin_vars")) rm(loglin_vars)
   if(exists("strata_vars")) rm(strata_vars)
 
@@ -126,11 +126,11 @@ f_parse_formula <- function(formula)
   names(res) <- c("Surv","lin_vars","loglin_vars","strata_vars","lin_factor","loglin_factor")
 
   # remove all pre existent variables
-  if(exists("formula_lin")) rm(formula_lin)
+  if(exists("formula_lin"))    rm(formula_lin)
   if(exists("formula_loglin")) rm(formula_loglin)
-  if(exists("formula_strat")) rm(formula_strat)
+  if(exists("formula_strat"))  rm(formula_strat)
 
-  if(exists("lin_vars")) rm(lin_vars)
+  if(exists("lin_vars"))    rm(lin_vars)
   if(exists("loglin_vars")) rm(loglin_vars)
   if(exists("strata_vars")) rm(strata_vars)
 

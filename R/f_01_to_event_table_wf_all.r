@@ -15,13 +15,13 @@
 
 f_to_event_table_wf_all <- function(formula,data,id_name,doses,times,covars)
 {
-  form <- f_parse_formula(formula)
+  form          <- f_parse_formula(formula)
   entry_name    <- as.character(form$Surv$entry)
   exit_name     <- as.character(form$Surv$exit)
   outcome_name  <- as.character(form$Surv$outcome)
   
-  dt1 <- f_to_event_table_wf_v2(id = id_name,start=entry_name,stop=exit_name,outcome=outcome_name,
-                                data = data,doses = doses,times = times,covars = covars)
+  dt1           <- f_to_event_table_wf_v2(id = id_name,start=entry_name,stop=exit_name,outcome=outcome_name,
+                                          data = data,doses = doses,times = times,covars = covars)
   
   return(dt1)
 }

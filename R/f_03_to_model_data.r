@@ -93,7 +93,7 @@ f_to_model_data <- function(formula,data,id_name,time_name)
   v_outcome <- eval(parse(text=paste0("data$",formula_sv[[4]])))
   v_time    <- eval(parse(text=paste0("data$",time_name)))
   
-  dt <- data.frame(v_id,v_n_pe,v_entry,v_exit,v_outcome,v_time)
+  dt        <- data.frame(v_id,v_n_pe,v_entry,v_exit,v_outcome,v_time)
   names(dt) <- c(id_name,"n_pe",as.character(formula_sv[[2]]),as.character(formula_sv[[3]]),as.character(formula_sv[[4]]),time_name)
   
   # linear covariates
@@ -106,25 +106,25 @@ f_to_model_data <- function(formula,data,id_name,time_name)
       if(grepl("factor",lin_vars[i]))
       {
         lin_vars[i] <- substr(lin_vars[i],8,nchar(lin_vars[i])-1)
-        is_factor <- T
+        is_factor   <- T
       }
       x <- eval(parse(text=paste0("data$",lin_vars[i])))
       if(is.factor(x) | is_factor)
       {
-        x <- as.factor(x)
+        x      <- as.factor(x)
         levels <- levels(x)
         for(j in 2:length(levels))
         {
-          n_lin_vars <- n_lin_vars+1
-          x_lev <- as.numeric(x==levels[j])
-          dt <- cbind(dt,x_lev)
+          n_lin_vars            <- n_lin_vars+1
+          x_lev                 <- as.numeric(x==levels[j])
+          dt                    <- cbind(dt,x_lev)
           names(dt)[dim(dt)[2]] <- paste0(lin_vars[i],"_",levels[j])
         }
       }
       else
       {
-        n_lin_vars <- n_lin_vars+1
-        dt <- cbind(dt,x)
+        n_lin_vars            <- n_lin_vars+1
+        dt                    <- cbind(dt,x)
         names(dt)[dim(dt)[2]] <- lin_vars[i]
       }
     }
@@ -140,25 +140,25 @@ f_to_model_data <- function(formula,data,id_name,time_name)
       if(grepl("factor",loglin_vars[i]))
       {
         loglin_vars[i] <- substr(loglin_vars[i],8,nchar(loglin_vars[i])-1)
-        is_factor <- T
+        is_factor      <- T
       }
       x <- eval(parse(text=paste0("data$",loglin_vars[i])))
       if(is.factor(x) | is_factor)
       {
-        x <- as.factor(x)
+        x      <- as.factor(x)
         levels <- levels(x)
         for(j in 2:length(levels))
         {
-          n_loglin_vars <- n_loglin_vars+1
-          x_lev <- as.numeric(x==levels[j])
-          dt <- cbind(dt,x_lev)
+          n_loglin_vars         <- n_loglin_vars+1
+          x_lev                 <- as.numeric(x==levels[j])
+          dt                    <- cbind(dt,x_lev)
           names(dt)[dim(dt)[2]] <- paste0(loglin_vars[i],"_",levels[j])
         }
       }
       else
       {
-        n_loglin_vars <- n_loglin_vars+1
-        dt <- cbind(dt,x)
+        n_loglin_vars         <- n_loglin_vars+1
+        dt                    <- cbind(dt,x)
         names(dt)[dim(dt)[2]] <- loglin_vars[i]
       }
     }
@@ -169,8 +169,8 @@ f_to_model_data <- function(formula,data,id_name,time_name)
   {
     for(i in 1:length(strata_vars))
     {
-      x <- eval(parse(text=paste0("data$",strata_vars[i])))
-      dt <- cbind(dt,x)
+      x                     <- eval(parse(text=paste0("data$",strata_vars[i])))
+      dt                    <- cbind(dt,x)
       names(dt)[dim(dt)[2]] <- strata_vars[i]
     }
   }
