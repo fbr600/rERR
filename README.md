@@ -81,6 +81,20 @@ devtools::install_github("fbr600/rERR")
 
 ## Latency period (lag) and exclusion
 
+The latency period is the estimated time after a certain exposure in which the dose-response is not possible.
+
+Analyzing the dose-response effect on a certain type of exposure, such as ionasing radiation, we want to exclude subjects that have a 
+failure or disease before that period because of misleading on causation.
+
+##### Risk Model 
+
+![](https://lh6.googleusercontent.com/7S3k2QhrXypJGEsViodMQXyNJRpczHDH409coPcHLqKXn8rK61JQQudyUVJJrioyTX2kizjHYUdA9mzM1hhKmFjYf2-KVA=w1680-h941)
+
+So, imposing a latency period implies two actions:
+* Remove subjects that have a follow-up shorter than lag period time
+* Set the entry time to the cohort as 1st Exposure Time + lag , which is the moment in which a subject start being at risk
+
+
 ## Examples
 Two different formats of data sets are allowed: 
 * Event format data set (ef) - where each row represents an exposure event.
