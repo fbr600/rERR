@@ -39,7 +39,7 @@ devtools::install_github("fbr600/rERR")
 
 ## Model Specification
 
-The ERR model is specified using a formula object in R
+* The ERR model is specified using a formula object in R
 
 ```
 formula <- Surv(entry_time,exit_time,outcome) ~ lin(dose_cum)
@@ -50,7 +50,7 @@ This is the formula for the model:
 
 where f(dose) is the cumulative is the cumulative dose of each subject up to the relative fail time.
 
-Also the covariates effect can be included in the model:
+* Also the covariates effect can be included in the model:
 ```
 formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum)
 ```
@@ -60,7 +60,7 @@ This is the formula of the model:
 
 where ![](http://mathurl.com/y7ekq4k8.png) are the different countries.
 
-Stratification in the risksets is done by using the ``` strata()``` function:
+* Stratification in the risksets is done by using the ``` strata()``` function:
 ```
 formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum)+strata(sex)
 ```
