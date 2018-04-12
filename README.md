@@ -343,9 +343,11 @@ f_fit_linERR_ef <- function (formula, data, id_name, dose_name, time_name, covar
 
 Then if the exclusion and the data transfomration are common in two analysis, we do not have to do it twice:
 ```
-# we only need to set the variables:
+# specify the models we want to run
 > formula1       <- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
 > formula2       <- Surv(entry_age,exit_age,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
+
+# we only need to set the variables:
 > data           <- cohort_ef
 > exclusion_done <- TRUE
 > lag            <- 2
@@ -361,9 +363,9 @@ Then if the exclusion and the data transfomration are common in two analysis, we
 > dt1            <- f_to_event_table_ef_all(formula=formula1,data=data,id_name,dose_name,
                                    time_name,covars_names=c("sex","country"))
 
-# fit the model with a particular formula
+# fit the first model
 > fit1          <- f_fit_linERR_all(formula1,data=dt1,id_name,time_name)
 
-# fit the model with a particular formula
+# fit the second model
 > fit2          <- f_fit_linERR_all(formula2,data=dt1,id_name,time_name)
 ```
