@@ -3,7 +3,6 @@
 #include <Rmath.h>
 #include <stdio.h>
 #include <stdlib.h>
-/*#include <conio.h>*/
 
 /*  CALL FROM R
     res <- .Call("llhood_linear_v3",beta_2,length(beta_2),length(rsets),
@@ -26,11 +25,12 @@ SEXP llhood_linear_v3(SEXP PAR,SEXP NPAR,SEXP NCASES,
 	res   = REAL(RES);
 	par   = REAL(parl);
 	
+	/* save parameter vector into a c vector */
 	for ( j=0; j <  *npar; j++ )
 	{
 		par[j] = REAL(PAR)[j];
 	}
-	
+	/* number of cases loop */
 	for( i = 0 ; i < *ncases ; i++ )
 	{
 		sum         = 0.0;
@@ -41,6 +41,7 @@ SEXP llhood_linear_v3(SEXP PAR,SEXP NPAR,SEXP NCASES,
 		doseRS      = 0.0;
 		nrseti      = REAL(VECTOR_ELT(NRSETI,i));
 		nrow_case   = REAL(VECTOR_ELT(ROWS_CASES,i));
+		/* Subject in the relative case risk set loop*/
 		for( ind_in_riskset = 0; ind_in_riskset < *nrseti ; ind_in_riskset++ )
 		{
 			n_row = REAL(VECTOR_ELT(RSETS,i))[ind_in_riskset]-1;
@@ -75,8 +76,7 @@ SEXP llhood_linear_v3(SEXP PAR,SEXP NPAR,SEXP NCASES,
 			}
 			
 		}
-		//if(i==0)
-		//	printf("nrseti %d n_rseti %f doseRS %f doseC %f beta %f\n",i,*nrseti,doseRS,doseC,par[0]);
+		/* Each risk set contribution to the log likelihood function */
 		res[i] = sumC / sum;
 		/* constrain of the model with respect the CONSTR_IND-th linear parameter*/
 		if(cons <= -1 / doseC ) 
@@ -84,24 +84,17 @@ SEXP llhood_linear_v3(SEXP PAR,SEXP NPAR,SEXP NCASES,
 		if(cons <= -(*nrseti) / doseRS)
 			cons = -(*nrseti) / doseRS;
 	}
-
+	/* To print the parameter and its relative value of the -loglikelihood function*/
+	/*
 	min = 0;
-	/* -loglik value*/
-	
 	for(i=0;i<*ncases;i++)
 		min = min - log(res[i]);
 	
-	/*
 	for(i=0;i<*npar;i++)
 		printf("%f ",par[i]);
 	printf("-loglik %f\n",min);
 	*/
 	
-	/*
-	for(i=0;i<*ncases;i++)
-		printf("%f ",res[i]);
-	printf("-loglik %.15f\n",min);
-	*/
 	res[*ncases] = cons;
 	UNPROTECT(2);
 	return RES;
