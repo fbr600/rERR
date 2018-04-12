@@ -25,7 +25,7 @@ One model of particular interest, especially in radiation environmental and occu
 
 ![](http://mathurl.com/y9qdc2mf.png)
 
-where ![](http://mathurl.com/y7ekq4k8.png) are the covariates
+where z is the vector of covariates.
 
 Estimation of a dose-response trend under a linear relative rate model implies that for every 1-unit increase in the exposure metric, 
 the rate of disease increases (or decreases) in an additive fashion. 
@@ -34,6 +34,8 @@ The modification of the effect of exposure in linear relative rate models by a s
 linear subterm for the linear exposure, implying a model of the form
 
 ![](http://mathurl.com/y8qtoa7r.png)
+
+where ![](http://mathurl.com/y7ekq4k8.png) are the covariates
 
 ## Installing
 
