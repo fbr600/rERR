@@ -62,12 +62,30 @@ devtools::install_github("fbr600/rERR")
 
 * Stratification in the risksets is done by using the ``` strata()``` function:
   ```
-  formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum)+strata(sex) 
+  formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum) + strata(sex) 
   ```
   Is the same model as before, but in the risksets only the subjects of the same sex as the case are taken as in-risk-subjects.
 
-### Break down into end to end tests
+## Examples
+Two different formats of data sets are allowed: 
+* Event format data set (ef) - where each row represents an exposure event.
+* Wide format data set (wf) - where each row contain all the follow-up information of a subject, icluding times of exposures and doses      of exposures
 
+### Using an event format data set as input cohort
+```
+# load library
+>library(rERR)
+```
+```
+> head(cohort_ef,row.names=F)
+ id sex entry_age exit_age outcome  age     dose country
+ 10   2      9.88 12.53114       0 7.88 15.80825      Be
+ 14   1     11.09 12.35592       0 9.09 13.96742      UK
+ 14   1     11.09 12.35592       0 9.17 13.81423      UK
+ 15   1      9.55 12.33402       0 7.55  9.25016      Fr
+ 16   1      8.48 12.29843       0 6.49 18.00776      Sp
+ 16   1      8.48 12.29843       0 9.16 11.35068      Sp
+ ```
 Explain what these tests test and why
 
 ```
