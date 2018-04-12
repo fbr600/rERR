@@ -69,7 +69,7 @@ devtools::install_github("fbr600/rERR")
 ## Examples
 Two different formats of data sets are allowed: 
 * Event format data set (ef) - where each row represents an exposure event.
-* Wide format data set (wf) - where each row contain all the follow-up information of a subject, icluding times of exposures and doses      of exposures
+* Wide format data set (wf) - where each row contain all the follow-up information of a subject, icluding times and doses of exposures
 
 ### Using an event format data set as input cohort
 
