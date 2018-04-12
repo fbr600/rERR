@@ -296,3 +296,73 @@ $lrt
 $lrt_pval
 [1] 0.0004224168
 ```
+
+### Save time in multi analysis of the same data set
+
+The process of fitting the model include an internal transformation of the data that can slow down the time of all process.
+
+Then if we need to run several analysis with the same data set, then we can run just one time the transfomation and run several 
+analysis on the transformed data set.
+
+The process can be splitted in three blocs:
+* Do the exclusion
+* Transform de data
+* fit the model
+
+```
+f_fit_linERR_ef <- function (formula, data, id_name, dose_name, time_name, covars_names,lag,exclusion_done=F) 
+{
+  # exclude subjects with the follow-up shorter than lag (lattency period) time
+  if(!exclusion_done)
+    data           <- f_exclusion(formula,data,lag)
+  
+  # this piece of code is encapsuled in the function: f_to_event_table_ef_all
+  {
+    form          <- f_parse_formula(formula)
+    entry_name    <- as.character(form$Surv$entry)
+    exit_name     <- as.character(form$Surv$exit)
+    outcome_name  <- as.character(form$Surv$outcome)
+    dt1           <- f_to_event_table_ef_v2(id = id_name, start = entry_name, 
+                                            stop = exit_name, outcome = outcome_name, data = data, 
+                                            doses = dose_name, times = time_name, covars = covars_names)
+  }
+  
+  # this piece of code is encapsuled in the function: f_fit_linERR_all
+  {
+    dt2           <- f_to_model_data(formula, data=dt1, id_name, time_name)
+    n_lin_vars    <- attr(dt2, "n_lin_vars")
+    n_loglin_vars <- attr(dt2, "n_loglin_vars")
+    rsets         <- f_risksets(formula, data = dt2, lag, id_name, time_name)
+    fit           <- f_fit_linERR(formula, data = dt2, rsets, n_lin_vars, 
+                                n_loglin_vars, id_name, time_name)
+    return(fit)
+  }
+}
+```
+
+Then if the exclusion and the data transfomration are common in two analysis, we do not have to do it twice:
+```
+# we only need to set the variables:
+> formula1       <- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
+> formula2       <- Surv(entry_age,exit_age,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
+> data           <- cohort_ef
+> exclusion_done <- TRUE
+> lag            <- 2
+> id_name        <- "id"
+> time_name      <- "age"
+> dose_name      <- "dose"
+
+# do the exclusion if needed
+> if (!exclusion_done) 
+        data <- f_exclusion(formula, data, lag)
+        
+# transform the data including all the covariates required in all analysis
+> dt1            <- f_to_event_table_ef_all(formula=formula1,data=data,id_name,dose_name,
+                                   time_name,covars_names=c("sex","country"))
+
+# fit the model with a particular formula
+> fit1          <- f_fit_linERR_all(formula1,data=dt1,id_name,time_name)
+
+# fit the model with a particular formula
+> fit2          <- f_fit_linERR_all(formula2,data=dt1,id_name,time_name)
+```
