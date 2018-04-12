@@ -41,30 +41,30 @@ devtools::install_github("fbr600/rERR")
 
 * The ERR model is specified using a formula object in R
 
-```
-formula <- Surv(entry_time,exit_time,outcome) ~ lin(dose_cum)
-```
-This is the formula for the model:
+  ```
+  formula <- Surv(entry_time,exit_time,outcome) ~ lin(dose_cum)
+  ```
+  This is the formula for the model:
 
-![](http://mathurl.com/y7frgjzt.png)
+  ![](http://mathurl.com/y7frgjzt.png)
 
-where f(dose) is the cumulative is the cumulative dose of each subject up to the relative fail time.
+  where f(dose) is the cumulative is the cumulative dose of each subject up to the relative fail time.
 
 * Also the covariates effect can be included in the model:
-```
-formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum)
-```
-This is the formula of the model:
+  ```
+  formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum)
+  ```
+  This is the formula of the model:
 
-![](http://mathurl.com/y95pxo7t.png)
+  ![](http://mathurl.com/y95pxo7t.png)
 
-where ![](http://mathurl.com/y7ekq4k8.png) are the different countries.
+  where ![](http://mathurl.com/y7ekq4k8.png) are the different countries.
 
 * Stratification in the risksets is done by using the ``` strata()``` function:
-```
-formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum)+strata(sex)
-```
-Is the same model as before, but in the risksets only the subjects of the same sex as the case are taken as in-risk-subjects.
+  ```
+  formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum)+strata(sex) 
+  ```
+  Is the same model as before, but in the risksets only the subjects of the same sex as the case are taken as in-risk-subjects.
 
 ### Break down into end to end tests
 
