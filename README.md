@@ -28,14 +28,6 @@ linear subterm for the linear exposure, implying a model of the form
 
 ![](http://mathurl.com/y8qtoa7r.png)
 
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
 ### Installing
 
 A step by step series of examples that tell you have to get a development env running
@@ -43,13 +35,8 @@ A step by step series of examples that tell you have to get a development env ru
 Say what the step will be
 
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+install.packages("devtools")
+devtools::install_github("fbr600/rERR")
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
