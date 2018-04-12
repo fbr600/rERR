@@ -140,7 +140,33 @@ Deviance:  309.9591
 Number of risk sets:  18
 ```
 
-### And coding style tests
+confidence intervals for fit1 parameters
+```
+> confint(fit1)
+Confidence intervals:
+
+Linear Parameter - Likelihood ratio test ci:
+               coef   lower .95 upper .95
+dose_cum 0.02401129 -0.01109805 0.8468688
+```
+
+confidence intervals for fit2 parameters
+```
+> confint(fit2)
+Confidence intervals:
+
+Linear Parameter - Likelihood ratio test ci:
+               coef   lower .95 upper .95
+dose_cum 0.02181835 -0.01138425  0.774703
+
+Log Linear Parameter - Wald ci:
+                 coef exp(coef) lower .95 upper .95
+country_Fr 0.03444314  1.035043 0.1457101  7.352371
+country_Ge 0.70025564  2.014268 0.3688989 10.998335
+country_It 0.70146822  2.016712 0.3692980 11.013126
+country_Sp 0.04522023  1.046258 0.1473371  7.429602
+country_UK 0.69520396  2.004118 0.3670159 10.943634
+```
 
 Explain what these tests test and why
 
