@@ -72,10 +72,12 @@ Two different formats of data sets are allowed:
 * Wide format data set (wf) - where each row contain all the follow-up information of a subject, icluding times of exposures and doses      of exposures
 
 ### Using an event format data set as input cohort
+
+load library
 ```
-# load library
->library(rERR)
+> library(rERR)
 ```
+look at the data set
 ```
 > head(cohort_ef,row.names=F)
  id sex entry_age exit_age outcome  age     dose country
@@ -86,10 +88,56 @@ Two different formats of data sets are allowed:
  16   1      8.48 12.29843       0 6.49 18.00776      Sp
  16   1      8.48 12.29843       0 9.16 11.35068      Sp
  ```
-Explain what these tests test and why
 
+ set the formulas for two models
+ ```
+> formula1  <- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
+> formula2  <- Surv(entry_age,exit_age,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
 ```
-Give an example
+
+fit the models
+```
+> fit1 <- f_fit_linERR_ef(formula1,data=cohort_ef,id_name="id",dose_name="dose",time_name="age",covars_names=c("sex"),lag=2,exclusion_done=T)
+> fit2 <- f_fit_linERR_ef(formula2,data=cohort_ef,id_name="id",dose_name="dose",time_name="age",covars_names=c("sex","country"),lag=2,exclusion_done=T)
+```
+
+Summary of fit1
+```
+> summary(fit1)
+Formula:
+Surv(entry_age, exit_age, outcome) ~ lin(dose_cum) + strata(sex)
+
+Linear Parameter Summary Table:
+               coef   se(coef)         z  Pr(>|z|)
+dose_cum 0.02401129 0.04400845 0.5456063 0.5853366
+
+AIC:  313.8759 
+Deviance:  311.8759 
+Number of risk sets:  18 
+```
+
+Summary of fit2
+```
+> summary(fit2)
+Formula:
+Surv(entry_age, exit_age, outcome) ~ loglin(factor(country)) + 
+    lin(dose_cum) + strata(sex)
+
+Linear Parameter Summary Table:
+               coef   se(coef)         z  Pr(>|z|)
+dose_cum 0.02181835 0.04152847 0.5253829 0.5993171
+
+Log Linear Parameter Summary Table:
+                 coef exp(coef)  se(coef)          z  Pr(>|z|)
+country_Fr 0.03444314  1.035043 1.0003142 0.03443232 0.9725324
+country_Ge 0.70025564  2.014268 0.8660814 0.80853332 0.4187836
+country_It 0.70146822  2.016712 0.8661484 0.80987072 0.4180145
+country_Sp 0.04522023  1.046258 1.0001470 0.04521359 0.9639371
+country_UK 0.69520396  2.004118 0.8661149 0.80266945 0.4221658
+
+AIC:  321.9591 
+Deviance:  309.9591 
+Number of risk sets:  18
 ```
 
 ### And coding style tests
