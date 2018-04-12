@@ -55,7 +55,7 @@ devtools::install_github("fbr600/rERR")
 
   ![](http://mathurl.com/y7frgjzt.png)
 
-  where f(dose) is the cumulative is the cumulative dose of each subject up to the relative fail time.
+  where f(dose) is the cumulative dose of each subject up to the relative fail time.
 
 * Also the covariates effect can be included in the model:
   ```
