@@ -101,7 +101,7 @@ Two different formats of data sets are allowed:
 > fit2 <- f_fit_linERR_ef(formula2,data=cohort_ef,id_name="id",dose_name="dose",time_name="age",covars_names=c("sex","country"),lag=2,exclusion_done=T)
 ```
 
-##### Summary of fit1
+##### summary of fit1
 ```
 > summary(fit1)
 Formula:
@@ -116,7 +116,7 @@ Deviance:  311.8759
 Number of risk sets:  18 
 ```
 
-##### Summary of fit2
+##### summary of fit2
 ```
 > summary(fit2)
 Formula:
@@ -198,4 +198,89 @@ id sex YearInit AgeAtEntry age_at_event outcome end_status ses number_of_ct    c
 ```
 > formula1  <- Surv(AgeAtEntry,age_at_event,outcome) ~ lin(dose_cum) + strata(sex)
 > formula2  <- Surv(AgeAtEntry,age_at_event,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
+```
+
+##### fit the models
+```
+> fit1 <- f_fit_linERR_wf(formula1,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],times=cohort_wf[,10:44],
+                        covars=cohort_wf[,c("sex","country")],lag=2,exclusion_done = F)
+
+> fit2 <- f_fit_linERR_wf(formula2,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],times=cohort_wf[,10:44],
+                        covars=cohort_wf[,c("sex","country")],lag=2,exclusion_done = F)
+```
+
+##### summary of fit1
+```
+> summary(fit1)
+Formula:
+Surv(AgeAtEntry, age_at_event, outcome) ~ lin(dose_cum) + strata(sex)
+
+Linear Parameter Summary Table:
+               coef   se(coef)        z  Pr(>|z|)
+dose_cum 0.03882416 0.03977917 0.975992 0.3290684
+
+AIC:  599.129 
+Deviance:  597.129 
+Number of risk sets:  34
+```
+##### summary of fit2
+```
+> summary(fit2)
+Formula:
+Surv(AgeAtEntry, age_at_event, outcome) ~ loglin(factor(country)) + 
+    lin(dose_cum) + strata(sex)
+
+Linear Parameter Summary Table:
+              coef   se(coef)         z  Pr(>|z|)
+dose_cum 0.0402001 0.04089224 0.9830742 0.3255709
+
+Log Linear Parameter Summary Table:
+                    coef    exp(coef)    se(coef)           z  Pr(>|z|)
+country_Fr -14.827568523 3.634702e-07 616.7428233 -0.02404174 0.9808193
+country_Ge  -0.005785829 9.942309e-01   0.5345654 -0.01082343 0.9913643
+country_It   0.312718515 1.367137e+00   0.4929068  0.63443745 0.5257954
+country_Sp  -0.606014765 5.455206e-01   0.6268803 -0.96671535 0.3336864
+country_UK  -0.159932110 8.522016e-01   0.5565602 -0.28735816 0.7738381
+
+AIC:  593.5899 
+Deviance:  581.5899 
+Number of risk sets:  34 
+```
+
+#### confidence intervals for fit1 parameters
+```
+> confint(fit1)
+Confidence intervals:
+
+Linear Parameter - Likelihood ratio test ci:
+               coef    lower .95 upper .95
+dose_cum 0.03882416 -0.003425317  0.278199
+```
+
+#### confidence intervals for fit2 parameters
+```
+> confint(fit2)
+Confidence intervals:
+
+Linear Parameter - Likelihood ratio test ci:
+              coef    lower .95 upper .95
+dose_cum 0.0402001 -0.003126192 0.2904963
+
+Log Linear Parameter - Wald ci:
+                    coef    exp(coef) lower .95 upper .95
+country_Fr -14.827568523 3.634702e-07 0.0000000       Inf
+country_Ge  -0.005785829 9.942309e-01 0.3487100  2.834720
+country_It   0.312718515 1.367137e+00 0.5202941  3.592319
+country_Sp  -0.606014765 5.455206e-01 0.1596650  1.863857
+country_UK  -0.159932110 8.522016e-01 0.2862843  2.536806
+```
+
+##### likelihood ratio test between nested and nesting models
+```
+> f_lrt(fit1,fit2)
+$lrt
+[1] 15.53904
+
+$lrt_pval
+[1] 0.0004224168
 ```
