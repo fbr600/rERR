@@ -73,11 +73,11 @@ Two different formats of data sets are allowed:
 
 ### Using an event format data set as input cohort
 
-load library
+##### load library
 ```
 > library(rERR)
 ```
-look at the data set
+##### look at the data set
 ```
 > head(cohort_ef,row.names=F)
  id sex entry_age exit_age outcome  age     dose country
@@ -89,19 +89,19 @@ look at the data set
  16   1      8.48 12.29843       0 9.16 11.35068      Sp
  ```
 
- set the formulas for two models
+ #### set the formulas for two models
  ```
 > formula1  <- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
 > formula2  <- Surv(entry_age,exit_age,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
 ```
 
-fit the models
+##### fit the models
 ```
 > fit1 <- f_fit_linERR_ef(formula1,data=cohort_ef,id_name="id",dose_name="dose",time_name="age",covars_names=c("sex"),lag=2,exclusion_done=T)
 > fit2 <- f_fit_linERR_ef(formula2,data=cohort_ef,id_name="id",dose_name="dose",time_name="age",covars_names=c("sex","country"),lag=2,exclusion_done=T)
 ```
 
-Summary of fit1
+##### Summary of fit1
 ```
 > summary(fit1)
 Formula:
@@ -116,7 +116,7 @@ Deviance:  311.8759
 Number of risk sets:  18 
 ```
 
-Summary of fit2
+##### Summary of fit2
 ```
 > summary(fit2)
 Formula:
@@ -140,7 +140,7 @@ Deviance:  309.9591
 Number of risk sets:  18
 ```
 
-confidence intervals for fit1 parameters
+#### confidence intervals for fit1 parameters
 ```
 > confint(fit1)
 Confidence intervals:
@@ -150,7 +150,7 @@ Linear Parameter - Likelihood ratio test ci:
 dose_cum 0.02401129 -0.01109805 0.8468688
 ```
 
-confidence intervals for fit2 parameters
+##### confidence intervals for fit2 parameters
 ```
 > confint(fit2)
 Confidence intervals:
@@ -168,42 +168,34 @@ country_Sp 0.04522023  1.046258 0.1473371  7.429602
 country_UK 0.69520396  2.004118 0.3670159 10.943634
 ```
 
-Explain what these tests test and why
-
+##### likelihood ratio test between nested and nesting models
 ```
-Give an example
+> f_lrt(fit1,fit2)
+$lrt
+[1] 1.916819
+
+$lrt_pval
+[1] 0.3835023
+```
+### Using an wide format data set as input cohort
+##### load library
+```
+> library(rERR)
+```
+##### look at the data set
+```
+> head(cohort_wf)
+id sex YearInit AgeAtEntry age_at_event outcome end_status ses number_of_ct    ctage1 ctage2 ... ctage35 dose1 dose2 ... dose35 country
+ 1   1     1983   7.957093    18.957093       0          2   1            1  7.957093      0           0  10.5     0          0      It
+ 2   1     1988  13.857040    18.857040       0          2   1            2 13.857040      0           0  10.4     0          0      Sp
+ 4   1     2008  16.496089    19.496089       0          2   1            1 16.496089      0           0   3.8     0          0      It
+12   1     2004   8.134463    17.134463       0          2   3            2  8.134463      0           0   7.0     0          0      Sp
+13   1     2009   2.554935     6.554935       0          2   2            2  2.554935      0           0   3.6     0          0      UK
+16   1     1996  16.968197    18.968197       0          2   3            1 16.968197      0           0   3.5     0          0      Fr
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+##### set the formulas for the models
+```
+> formula1  <- Surv(AgeAtEntry,age_at_event,outcome) ~ lin(dose_cum) + strata(sex)
+> formula2  <- Surv(AgeAtEntry,age_at_event,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
+```
