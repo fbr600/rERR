@@ -33,7 +33,7 @@ the rate of disease increases (or decreases) in an additive fashion.
 The modification of the effect of exposure in linear relative rate models by a study covariate z can be assessed by including a log-
 linear subterm for the linear exposure, implying a model of the form
 
-![](http://mathurl.com/y8qtoa7r.png)
+![](http://mathurl.com/y7gxtet4.png)
 
 where ![](http://mathurl.com/y7ekq4k8.png) are the covariates
 
