@@ -43,7 +43,7 @@ test_that("follow up time is greater or equal than lag",
   # there is no subject with less than lag years of followup
   lag <- 2
 
-  dt2$time_follow_up <- dt2$age_at_event - dt2$AgeAtEntry
+  dt2$time_follow_up <- dt2$age_at_event - dt2$ctage1
   expect_equal(length(dt2$id[which(dt2$time_follow_up<lag)]),0)
 })
 
@@ -68,7 +68,7 @@ test_that("follow up time is greater or equal than lag",
   # there is no subject with less than lag years of followup
   lag <- 2
 
-  dt2$time_follow_up <- dt2$exit_age - dt2$entry_age
+  dt2$time_follow_up <- dt2$exit_age - dt2$entry_age+lag
   expect_equal(length(dt2$id[which(dt2$time_follow_up<lag)]),0)
 })
 
