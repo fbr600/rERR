@@ -14,12 +14,15 @@ fit Excess Relative Risk model
 In radiation epidemiology, ERR models are used to analyze dose-response relationships for event rate data.
 
 Usual approaches to the analysis of cohort and case control data often follow from risk-set sampling designs, where at each failure 
-time a new risk set is defined, including the index case and all the controls that were at risk at that time. That kind of sampling designs are usually related to the 
-Cox proportional hazards model, available in most standard statistical packages but limited to log-linear model, of the form
+time a new risk set is defined, including the index case and all the controls that were at risk at that time. That kind of sampling 
+designs are usually related to the 
+Cox proportional hazards model, 
 
 ![](http://mathurl.com/y7gp2qz5.png)
 
 where ![](http://mathurl.com/y7ekq4k8.png) is the vector of explanatory variables.
+
+is available in most standard statistical packages but limited to log-linear model (except Epicure,(Preston et al., 1993)).
 
 One model of particular interest, especially in radiation environmental and occupational epidemiology is the linear ERR model, 
 
