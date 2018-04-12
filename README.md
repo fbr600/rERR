@@ -8,13 +8,22 @@ In radiation epidemiology, ERR models are used to analyze dose-response relation
 
 Usual approaches to the analysis of cohort and case control data often follow from risk-set sampling designs, where at each failure 
 time a new risk set is defined, including the index case and all the controls that were at risk at that time. That kind of sampling designs are usually related to the 
-Cox proportional hazards model, available in most standard statistical packages but limited to log-linear models.
+Cox proportional hazards model, available in most standard statistical packages but limited to log-linear model, of the form
+
+   ![](http://mathurl.com/y7gp2qz5.png)
+   
+where ![](http://mathurl.com/y7ekq4k8.png) is the vector of explanatory variables.
 
 One model of particular interest, especially in radiation environmental and occupational epidemiology is the linear ERR model, 
 
-![](http://mathurl.com/y8f8opkv.png)
+![](http://mathurl.com/y9qdc2mf.png)
 
-The ERR model represents the excess relative rate per unit of exposure and ![](http://mathurl.com/yd9sutac.png) are covariates. Estimation of a dose-response trend under a linear relative rate model implies that for every 1-unit increase in the exposure metric, the rate of disease increases (or decreases) in an additive fashion. The modification of the effect of exposure in linear relative rate models by a study covariate m can be assessed by including a log-linear subterm for the linear exposure
+where ![](http://mathurl.com/y7ekq4k8.png) are the covariates
+
+The ERR model represents the excess relative rate per unit of exposure and ![](http://mathurl.com/yd9sutac.png) are covariates. 
+Estimation of a dose-response trend under a linear relative rate model implies that for every 1-unit increase in the exposure metric, 
+the rate of disease increases (or decreases) in an additive fashion. The modification of the effect of exposure in linear relative rate 
+models by a study covariate m can be assessed by including a log-linear subterm for the linear exposure
 
 ### Prerequisites
 
