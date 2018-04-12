@@ -79,6 +79,8 @@ devtools::install_github("fbr600/rERR")
   ```
   Is the same model as before, but in the risksets only the subjects of the same sex as the case are taken as in-risk-subjects.
 
+## Latency period (lag) and exclusion
+
 ## Examples
 Two different formats of data sets are allowed: 
 * Event format data set (ef) - where each row represents an exposure event.
