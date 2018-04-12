@@ -134,7 +134,7 @@ Number of risk sets:  18
 > summary(fit2)
 Formula:
 Surv(entry_age, exit_age, outcome) ~ loglin(factor(country)) + 
-    lin(dose_cum) + strata(sex)
+     lin(dose_cum) + strata(sex)
 
 Linear Parameter Summary Table:
                coef   se(coef)         z  Pr(>|z|)
@@ -216,10 +216,10 @@ id sex YearInit AgeAtEntry age_at_event outcome end_status ses number_of_ct    c
 ##### fit the models
 ```
 > fit1 <- f_fit_linERR_wf(formula1,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],times=cohort_wf[,10:44],
-                        covars=cohort_wf[,c("sex","country")],lag=2,exclusion_done = F)
+                          covars=cohort_wf[,c("sex","country")],lag=2,exclusion_done = F)
 
 > fit2 <- f_fit_linERR_wf(formula2,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],times=cohort_wf[,10:44],
-                        covars=cohort_wf[,c("sex","country")],lag=2,exclusion_done = F)
+                          covars=cohort_wf[,c("sex","country")],lag=2,exclusion_done = F)
 ```
 
 ##### summary of fit1
@@ -335,7 +335,7 @@ f_fit_linERR_ef <- function (formula, data, id_name, dose_name, time_name, covar
     n_loglin_vars <- attr(dt2, "n_loglin_vars")
     rsets         <- f_risksets(formula, data = dt2, lag, id_name, time_name)
     fit           <- f_fit_linERR(formula, data = dt2, rsets, n_lin_vars, 
-                                n_loglin_vars, id_name, time_name)
+                                  n_loglin_vars, id_name, time_name)
     return(fit)
   }
 }
@@ -361,7 +361,7 @@ Then if the exclusion and the data transfomration are common in two analysis, we
         
 # transform the data including all the covariates required in all analysis
 > dt1            <- f_to_event_table_ef_all(formula=formula1,data=data,id_name,dose_name,
-                                   time_name,covars_names=c("sex","country"))
+                                            time_name,covars_names=c("sex","country"))
 
 # fit the first model
 > fit1          <- f_fit_linERR_all(formula1,data=dt1,id_name,time_name)
