@@ -5,6 +5,7 @@ fit Excess Relative Risk model
 * [Introduction](https://github.com/fbr600/rERR#introduction)
 * [Installing](https://github.com/fbr600/rERR#installing)
 * [Model Specification](https://github.com/fbr600/rERR#model-specification)
+* [Latency period (lag) and exclusion](https://github.com/fbr600/rERR#latency-period-lag-and-exclusion)
 * [Examples](https://github.com/fbr600/rERR#examples)
   + [Using an event format data set as input cohort](https://github.com/fbr600/rERR#using-an-event-format-data-set-as-input-cohort)
   + [Using a wide format data set as input cohort](https://github.com/fbr600/rERR#using-a-wide-format-data-set-as-input-cohort)
