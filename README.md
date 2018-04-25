@@ -119,7 +119,7 @@ Two different formats of data sets are allowed:
  16   1      8.48 12.29843       0 9.16 11.35068      Sp
  ```
 
- #### set the formulas for two models
+##### set the formulas for two models
  ```
 > formula1  <- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
 > formula2  <- Surv(entry_age,exit_age,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
@@ -170,7 +170,7 @@ Deviance:  309.9591
 Number of risk sets:  18
 ```
 
-#### confidence intervals for fit1 parameters
+##### confidence intervals for fit1 parameters
 ```
 > confint(fit1)
 Confidence intervals:
@@ -277,7 +277,7 @@ Deviance:  581.5899
 Number of risk sets:  34 
 ```
 
-#### confidence intervals for fit1 parameters
+##### confidence intervals for fit1 parameters
 ```
 > confint(fit1)
 Confidence intervals:
@@ -287,7 +287,7 @@ Linear Parameter - Likelihood ratio test ci:
 dose_cum 0.03882416 -0.003425317  0.278199
 ```
 
-#### confidence intervals for fit2 parameters
+##### confidence intervals for fit2 parameters
 ```
 > confint(fit2)
 Confidence intervals:
