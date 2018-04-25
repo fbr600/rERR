@@ -89,7 +89,7 @@ failure or disease before that period because of misleading on causation.
 
 ##### Risk Model 
 
-![](https://lh6.googleusercontent.com/7S3k2QhrXypJGEsViodMQXyNJRpczHDH409coPcHLqKXn8rK61JQQudyUVJJrioyTX2kizjHYUdA9mzM1hhKmFjYf2-KVA=w1680-h941)
+![](https://lh6.googleusercontent.com/rXvcGjbxQta0h39RbkRx2x-4itTgnwdYEe8e3SZoID1a1KIsukbt6PQa8Dcc8JTfy8QItlAEQauxhX2g-CZl=w1280-h869)
 
 So, imposing a latency period implies two actions:
 * Remove subjects that have a follow-up shorter than lag period time
