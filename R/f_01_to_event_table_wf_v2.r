@@ -12,10 +12,11 @@
 #' @return The data set with the event-row format, including the event of exit of the cohort
 #' @examples \donotrun{ f_to_event_table_wf_v2(id='patientids',start='entry_age',stop='exit_age',outcome='leukaemia',data,times=data[,11:30],doses=data[,31:50],covars=data[,c('sex','country,'birthcohort')])}
 #' @importFrom plyr count
+#' @importFrom plyr arrange
 #' @importFrom dplyr group_by 
 #' @importFrom dplyr mutate 
-#' @importFrom dplyr arrange 
 #' @importFrom dplyr "%>%"
+#' @importFrom reshape2 melt
 
 
 f_to_event_table_wf_v2 <- function(id,start,stop,outcome,
@@ -53,20 +54,28 @@ f_to_event_table_wf_v2 <- function(id,start,stop,outcome,
   names(mat) <- names
   
   # times
-  x <- apply(times,1,paste,collapse=" ")
-  x <- strsplit(x," ")
-  x <- lapply(x,as.numeric)
-  x <- unlist(x)
+  if(dim(times)[2]>9) {
+    names(times) <- c(paste0("x0",1:9),paste0("x",10:(dim(times)[2])))
+  }else {
+    names(times) <- c(paste0("x0",1:dim(times)[2]))
+  }
+  times$row_ <- 1:dim(times)[1]
+  x <- melt(times,id.vars="row_",measure.vars=c(1:(dim(times)[2]-1)))
+  x <- plyr::arrange(x,row_,variable)
   
-  mat[,which(names(mat)=="time")] <- x
+  mat[,which(names(mat)=="time")] <- x$value
   
   # doses
-  x <- apply(doses,1,paste,collapse=" ")
-  x <- strsplit(x," ")
-  x <- lapply(x,as.numeric)
-  x <- unlist(x)
+  if(dim(doses)[2]>9) {
+    names(doses) <- c(paste0("x0",1:9),paste0("x",10:(dim(doses)[2])))
+  }else {
+    names(doses) <- c(paste0("x0",1:dim(doses)[2]))
+  }
+  doses$row_ <- 1:dim(doses)[1]
+  x <- melt(doses,id.vars="row_",measure.vars=c(1:(dim(doses)[2]-1)))
+  x <- plyr::arrange(x,row_,variable)
   
-  mat[,which(names(mat)=="dose")] <- x
+  mat[,which(names(mat)=="dose")] <- x$value
   
   # exclude py after exitage
   if(length(which(mat$time >= mat[,3]))>0)
@@ -115,7 +124,7 @@ f_to_event_table_wf_v2 <- function(id,start,stop,outcome,
   
   # arrange rows
   mat$id_ <- unlist(mat[,1])
-  mat     <- dplyr::arrange(mat,id_,time)
+  mat     <- plyr::arrange(mat,id_,time)
   
   # add the cumulative exposure
   mat <- mat %>%
