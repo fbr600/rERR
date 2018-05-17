@@ -44,14 +44,17 @@ where ![](http://mathurl.com/y7ekq4k8.png) are the covariates
 
 ## Installing
 
-* With installation of source code: require Rtools installed in your computer
+* With compilation of source code: require Rtools installed in your computer
+  
   The package can be installed directly from github:
 
   ```
   install.packages("devtools")
   devtools::install_github("fbr600/rERR")
   ```
-* You can download the .zip file [here](https://github.com/fbr600/rERR_binnary/raw/master/rERR_0.0.0.9000.zip) and install from RStudio changing the 'install from' in the Tools->Install Packages and browsing the downloaded zip file.
+* Without compilation:
+
+You can download the .zip file [here](https://github.com/fbr600/rERR_binnary/raw/master/rERR_0.0.0.9000.zip) and install from RStudio changing the *'install from'* in the *Tools->Install Packages* and browsing the downloaded zip file.
 
 ## Model Specification
 
