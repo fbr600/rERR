@@ -44,7 +44,7 @@ where ![](http://mathurl.com/y7ekq4k8.png) are the covariates
 
 ## Installing
 
-* With compilation of source code: require Rtools installed in your computer
+* With compilation of source code: it requires Rtools installed in your computer
   
   The package can be installed directly from github:
 
