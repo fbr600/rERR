@@ -54,7 +54,7 @@ where ![](http://mathurl.com/y7ekq4k8.png) are the covariates
   ```
 * Without compilation:
 
-You can download the .zip file [here](https://github.com/fbr600/rERR_binnary/raw/master/rERR_0.0.0.9000.zip) and install from RStudio changing the *'install from'* in the *Tools->Install Packages* and browsing the downloaded zip file.
+  You can download the .zip file [here](https://github.com/fbr600/rERR_binnary/raw/master/rERR_0.0.0.9000.zip) and install from RStudio   changing the *'install from'* in the *Tools->Install Packages* and browsing the downloaded zip file.
 
 ## Model Specification
 
