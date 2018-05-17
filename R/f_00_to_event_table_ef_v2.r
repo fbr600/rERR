@@ -14,7 +14,7 @@
 #' @importFrom plyr count
 #' @importFrom dplyr group_by 
 #' @importFrom dplyr mutate 
-#' @importFrom dplyr arrange 
+#' @importFrom plyr arrange 
 #' @importFrom dplyr "%>%"
 
 f_to_event_table_ef_v2 <- function(id,start,stop,outcome,data,times,doses,covars)
@@ -46,7 +46,7 @@ f_to_event_table_ef_v2 <- function(id,start,stop,outcome,data,times,doses,covars
   data[,which(names(data)==outcome)] <- 0
   data                               <- rbind(data,dt)
   data$time_aux                      <- eval(parse(text=paste0("data$",time_name)))
-  data                               <- arrange(data,id_,time_aux)
+  data                               <- plyr::arrange(data,id_,time_aux)
   data                               <- data[,-dim(data)[2]]
   
   # create the dose_cum

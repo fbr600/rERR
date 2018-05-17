@@ -116,6 +116,8 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
   
   # optimization
   res <- mle(minuslogl = p.est,start = beta,method = "L-BFGS-B",lower=llim*reduction)
+   
+  # res <- bbmle::mle2(minuslogl = p.est,start = beta,method = "L-BFGS-B",lower=llim*reduction)
   
   # summary
   names                       <- names(data)[8:(8+n_lin_vars+n_loglin_vars-1)]

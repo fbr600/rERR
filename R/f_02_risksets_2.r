@@ -10,7 +10,7 @@
 #' @param time_name name of the time variable
 #' @return a named list with integer vectors containing the number of rows that are in each the riskset (relevant person-time)
 #' @examples \donotrun{ f_riskset(formula,data,lag=2,id_name='patientids',time_name='time')}
-#' @importFrom dplyr arrange 
+#' @importFrom plyr arrange 
 #' @importFrom dplyr summarize 
 #' @importFrom dplyr group_by 
 #' @importFrom dplyr "%>%"

@@ -8,8 +8,8 @@
 #' @param time_name name of the time variable
 #' @return data set described below
 #' @examples \donotrun{ f_to_model_data(formula,data,id_name='patientids',time_name='time')}
-#' @importFrom dplyr arrange
-
+#' @importFrom plyr arrange
+#' @export
 
 f_to_model_data <- function(formula,data,id_name,time_name)
 {
@@ -177,7 +177,7 @@ f_to_model_data <- function(formula,data,id_name,time_name)
   # order by id and time:cols 1 and 6
   dt    <- cbind(dt,dt[,c(1,6)])
   names(dt)[(dim(dt)[2]-1):dim(dt)[2]] <- c("id_aux","time_aux")
-  dt    <- arrange(dt,id_aux,time_aux)
+  dt    <- plyr::arrange(dt,id_aux,time_aux)
   # add the rownumber
   n_row <- data.frame(n_row=1:(dim(dt)[1]))
   dt    <- cbind(n_row,dt)
