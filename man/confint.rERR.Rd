@@ -4,7 +4,7 @@
 \alias{confint.rERR}
 \title{Confidence intervals}
 \usage{
-confint.rERR(object)
+\method{confint}{rERR}(object)
 }
 \arguments{
 \item{object}{an object of class rERR}
