@@ -110,9 +110,9 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
   
   # in case of multivariate linear it may happen that even with the component constraint, the joint is not finite
   reduction <- 0.999
-  if(n_lin_vars>0)
-    if(!is.finite(do.call(p.est,as.list(llim*reduction))))
-      reduction <- 0.9
+  if(n_lin_vars>0 & n_loglin_vars==0)
+    while(!is.finite(do.call(p.est,as.list(llim*reduction))))
+      reduction <- reduction^2
   
   # optimization
   res <- mle(minuslogl = p.est,start = beta,method = "L-BFGS-B",lower=llim*reduction)
