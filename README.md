@@ -46,7 +46,7 @@ where ![](http://mathurl.com/y7ekq4k8.png) are the covariates
 
 * With compilation of source code: it requires Rtools installed in your computer
   
-  The package can be installed directly from github:
+  The package can be installed directly in RStudio from github:
 
   ```
   install.packages("devtools")
@@ -54,7 +54,15 @@ where ![](http://mathurl.com/y7ekq4k8.png) are the covariates
   ```
 * Without compilation:
 
-  You can download the .zip file [here](https://github.com/fbr600/rERR_binnary/raw/master/rERR_0.0.0.9000.zip) and install from RStudio   changing the *'install from'* in the *Tools->Install Packages* and browsing the downloaded zip file.
+  You can download the .zip file [here](https://github.com/fbr600/rERR_binnary/raw/master/rERR_0.0.0.9000.zip).
+  Then run the follow code in RStudio:
+  
+  ```
+  install.packages("path_to_downloads_folder/rERR_0.0.0.9000.zip", repos = NULL, type = "win.binary")
+  install.packages("devtools")
+  devtools::install_deps(paste0(.libPaths(),"/rERR"))
+  ```
+  
 
 ## Model Specification
 
