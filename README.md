@@ -101,7 +101,8 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
  
 **Observation**
 The data transformation required by the model computes the cumulative dose within the subject level over time, *dose_cum*, so this is a time-dependent variable, that is the cumulative dose recieved by each subject at every time. 
-This always can be used as a variable, or can be used to recompute new variables such as other polynomic terms, cateogrizations of dose...
+
+This variable always can be used as a variable, or can be used to recompute new variables such as other polynomic terms, cateogrizations of dose...
   
 
 ## Latency period (lag) and exclusion
