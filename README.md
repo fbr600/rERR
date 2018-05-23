@@ -97,6 +97,10 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
   formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum) + strata(sex) 
   ```
   Is the same model as before, but in the risksets only the subjects of the same sex as the case are taken as in-risk-subjects.
+  
+  **Observation**
+  The data transformation required by the model computes the cumulative dose within the subject level over time, and the relative variable has the name of *dose_cum* at the end, so this is a time-dependent variable, that is the cumulative dose recieved by each subject at every time.
+  
 
 ## Latency period (lag) and exclusion
 
