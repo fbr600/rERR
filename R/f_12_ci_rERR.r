@@ -8,7 +8,7 @@
 #' @export
 confint.rERR <- function(object)
 {
-  n_lin    <- nrow(attr(object,"lrt_ci"))
+  n_lin    <- ifelse(is.null(attr(object,"lrt_ci")),0,nrow(attr(object,"lrt_ci")))
   n_loglin <- ifelse(is.null(attr(object,"wald_ci")),0,nrow(attr(object,"wald_ci")))
   
   lin_coeff    <- attr(object,"lin_coef")
@@ -17,7 +17,9 @@ confint.rERR <- function(object)
   loglin_ci    <- attr(object,"wald_ci")
   
   lin_ci              <- cbind(lin_coeff[,1],lin_ci)
-  colnames(lin_ci)[1] <- "coef"
+  
+  if(n_lin>0)
+    colnames(lin_ci)[1] <- "coef"
   
   loglin_ci    <- cbind(loglin_coeff[,c(1,2)],loglin_ci[,c(3,4)])
   
