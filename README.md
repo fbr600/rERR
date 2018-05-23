@@ -411,3 +411,42 @@ Then if the exclusion and the data transfomration are common in two analysis, we
 # fit the second model
 > fit2          <- f_fit_linERR_all(formula2,data=dt1,id_name,time_name)
 ```
+
+### Using Categorical Exposure
+
+Often we want to know how the risk evolves throug levels of exposure, to do this we can create a categorization of the dose and then plut this categories into the model in the loglinear part.
+
+To do this the whole process can be broken in three main steps:
+  * Do the first data transformation
+  * Copute the categories of exposure
+  * Fit the model, so run the optimization
+  
+ ##### Do the first transformation
+ 
+ Set the formula for the transformation and for the further categorical model, take into account that *dose_cat* still not exist, later on will be created:
+ 
+ ```
+ > formula2 <- Surv(entry_age,exit_age,outcome) ~ loglin(dose_cat)+strata(sex)
+ ```
+ 
+ Then run the transormation part, 
+ ```
+ > dt1 <- f_to_event_table_ef_all(formula1,data = cohort_ef,id_name = "id",dose_name = "dose",
+                                time_name = "age",covars_names = c("sex","country"))
+```                      
+
+Look at the new data set:
+```
+> head(dt1)
+# A tibble: 6 x 13
+# Groups:   id_ [3]
+     id   sex entry_age exit_age outcome   age  dose country   id_  n_pe dose_num dose_cum   id1
+  <int> <int>     <dbl>    <dbl>   <dbl> <dbl> <dbl> <chr>   <int> <dbl>    <dbl>    <dbl> <int>
+1    10     2      9.88     12.5       0  7.88 15.8  Be         10     1    15.8     15.8      1
+2    10     2      9.88     12.5       0 12.5   0    Be         10     0     0       15.8      1
+3    14     1     11.1      12.4       0  9.09 14.0  UK         14     1    14.0     14.0      2
+4    14     1     11.1      12.4       0  9.17 13.8  UK         14     2    13.8     27.8      2
+5    14     1     11.1      12.4       0 12.4   0    UK         14     0     0       27.8      2
+6    15     1      9.55     12.3       0  7.55  9.25 Fr         15     1     9.25     9.25     3
+```
+
