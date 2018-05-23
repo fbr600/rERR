@@ -415,7 +415,7 @@ Then if the exclusion and the data transfomration are common in two analysis, we
 
 ### Using Categorical Exposure
 
-Often we want to know how the risk evolves throug levels of exposure, to do this we can create a categorization of the dose and then plut this categories into the model in the loglinear part.
+Often we want to know how the risk evolves through levels of exposure, to do this we can create a categorization of the dose and then put this categories into the model in the loglinear part.
 
 To do this the whole process can be broken in three main steps:
   * Do the first data transformation
@@ -460,6 +460,8 @@ To decide what are the more appropiate cutoffs for the exposure levels usually b
 > summary(dt1$dose_cum)
 > hist(log(dt1$dose_cum))
 ```
+**Observation** 
+More accurate cutoffs can be described if only look at the doses that will be involved in the model, so it would imply to just look  at the doses of the subjects in the risksets at the relatives failtimes.
 
 After see the distributions of several sets of cutoffs, select the choice:
 
