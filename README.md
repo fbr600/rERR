@@ -10,7 +10,8 @@ fit Excess Relative Risk model
   + [Using an event format data set as input cohort](https://github.com/fbr600/rERR#using-an-event-format-data-set-as-input-cohort)
   + [Using a wide format data set as input cohort](https://github.com/fbr600/rERR#using-a-wide-format-data-set-as-input-cohort)
   + [Save time in multi analysis of the same data set](https://github.com/fbr600/rERR#save-time-in-multi-analysis-of-the-same-data-set)
-
+  + [Using Categorical Exposure](https://github.com/fbr600/rERR##using-categorical-exposure)
+  
 ## Introduction
 
 In radiation epidemiology, ERR models are used to analyze dose-response relationships for event rate data.
