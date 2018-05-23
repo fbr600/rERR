@@ -98,8 +98,10 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
   ```
   Is the same model as before, but in the risksets only the subjects of the same sex as the case are taken as in-risk-subjects.
   
-  **Observation**
-  The data transformation required by the model computes the cumulative dose within the subject level over time, and the relative variable has the name of *dose_cum* at the end, so this is a time-dependent variable, that is the cumulative dose recieved by each subject at every time.
+ 
+**Observation**
+The data transformation required by the model computes the cumulative dose within the subject level over time, *dose_cum*, so this is a time-dependent variable, that is the cumulative dose recieved by each subject at every time. 
+This always can be used as a variable, or can be used to recompute new variables such as other polynomic terms, cateogrizations of dose...
   
 
 ## Latency period (lag) and exclusion
