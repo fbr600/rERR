@@ -418,7 +418,7 @@ Often we want to know how the risk evolves throug levels of exposure, to do this
 
 To do this the whole process can be broken in three main steps:
   * Do the first data transformation
-  * Copute the categories of exposure
+  * Compute the categories of exposure
   * Fit the model, so run the optimization
   
  ##### Do the first transformation
@@ -426,12 +426,12 @@ To do this the whole process can be broken in three main steps:
  Set the formula for the transformation and for the further categorical model, take into account that *dose_cat* still not exist, later on will be created:
  
  ```
- > formula2 <- Surv(entry_age,exit_age,outcome) ~ loglin(dose_cat)+strata(sex)
+ > formula <- Surv(entry_age,exit_age,outcome) ~ loglin(dose_cat)+strata(sex)
  ```
  
  Then run the transormation part, 
  ```
- > dt1 <- f_to_event_table_ef_all(formula1,data = cohort_ef,id_name = "id",dose_name = "dose",
+ > dt1 <- f_to_event_table_ef_all(formula,data = cohort_ef,id_name = "id",dose_name = "dose",
                                 time_name = "age",covars_names = c("sex","country"))
 ```                      
 
@@ -450,3 +450,44 @@ Look at the new data set:
 6    15     1      9.55     12.3       0  7.55  9.25 Fr         15     1     9.25     9.25     3
 ```
 
+##### Compute the categories of exposure
+
+The variable that will be categorized is *dose_cum* which is the cumulative dose at time *age*.
+To decide what are the more appropiate cutoffs for the exposure levels usually basic descriptives are used:
+
+```
+> summary(dt1$dose_cum)
+> hist(log(dt1$dose_cum))
+```
+
+After see the distributions of several sets of cutoffs, select the choice:
+
+```
+> dt1$dose_cat <- cut(dt1$dose_cum, breaks = c(0,5,10,25,100,1000), right=F )
+> plyr::count(dt1$dose_cat)
+            x  freq
+1       [0,5) 18455
+2      [5,10) 26262
+3     [10,25) 46838
+4    [25,100) 37005
+5 [100,1e+03)  7490
+````
+Fit the model
+
+```
+> fit <- f_fit_linERR_all(formula,data=dt1,id_name = "id",time_name = "age",lag = 2)
+> summary(fit)
+Formula:
+Surv(entry_age, exit_age, outcome) ~ loglin(dose_cat) + strata(sex)
+
+Log Linear Parameter Summary Table:
+                            coef    exp(coef)    se(coef)            z  Pr(>|z|)
+dose_cat_[5,10)      -17.3175712 3.013522e-08 8388.608701 -0.002064415 0.9983528
+dose_cat_[10,25)       0.7851632 2.192765e+00    1.094160  0.717594248 0.4730075
+dose_cat_[25,100)      1.6628654 5.274403e+00    1.073705  1.548717024 0.1214498
+dose_cat_[100,1e+03) -14.0343748 8.034308e-07 2372.656914 -0.005915046 0.9952805
+
+AIC:  305.9834 
+Deviance:  297.9834 
+Number of risk sets:  18
+```
