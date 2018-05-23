@@ -24,7 +24,7 @@ Cox proportional hazards model,
 
 where ![](http://mathurl.com/y7ekq4k8.png) is the vector of explanatory variables,
 
-is available in most standard statistical packages but limited to log-linear model (except Epicure,(Preston et al., 1993)).
+This model is available in most standard statistical packages but limited to log-linear model (except Epicure,(Preston et al., 1993)).
 
 One model of particular interest, especially in radiation environmental and occupational epidemiology is the linear ERR model, 
 
@@ -40,7 +40,11 @@ linear subterm for the linear exposure, implying a model of the form
 
 ![](http://mathurl.com/y7gxtet4.png)
 
-where ![](http://mathurl.com/y7ekq4k8.png) are the covariates
+where ![](http://mathurl.com/y7ekq4k8.png) are the covariates.
+
+This package is an R impelementation of models that are rarely implemented outside Epicure: the Linear Excess Relative Risk model 
+allowing time dependent covariates, time dependent adjustments, lagged exposures and stratification.
+
 
 ## Installing
 
