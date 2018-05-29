@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{a ci.ERR object}
+
+\item{\ldots}{for future methods}
 }
 \description{
 Print the cofnidence intervals of rERR fit

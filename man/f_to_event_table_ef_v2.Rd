@@ -29,3 +29,8 @@ The data set with the event-row format, including the event of exit of the cohor
 \description{
 This function organize an input data set ef, same as f_to_event_table_ef_all but with start,stop and outcome from the formula
 }
+\examples{
+\dontrun{f_to_event_table_ef_v2(id='patientids',start='entry_age',stop='exit_age',
+                                       outcome='leukaemia',data,times='age',doses='ActMar_med',
+                                       covars=c('sex','country','birthcohort'))}
+}

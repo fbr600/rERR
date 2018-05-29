@@ -8,7 +8,8 @@ f_fit_linERR_wf(formula, data, id_name, doses, times, covars, lag,
   exclusion_done = F)
 }
 \arguments{
-\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
+\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
 
 \item{data}{data set returned from f_to_model_data}
 
@@ -32,15 +33,19 @@ function that calls the optimization (mle from stats4 package, so use optim) fro
 }
 \examples{
 # set the formulas for the models
-formula1  <- Surv(AgeAtEntry,age_at_event,outcome) ~ lin(dose_cum) + strata(sex)
-formula2  <- Surv(AgeAtEntry,age_at_event,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
+formula1 <- Surv(AgeAtEntry,age_at_event,outcome) ~ lin(dose_cum) + strata(sex)
+formula2 <- Surv(AgeAtEntry,age_at_event,outcome) ~ loglin(factor(country)) + lin(dose_cum) + 
+                                                    strata(sex)
 
+  
 # fit the models
-fit1 <- f_fit_linERR_wf(formula1,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],times=cohort_wf[,10:44],
-                        covars=cohort_wf[,c("sex","country")],lag=2,exclusion_done = F)
+fit1 <- f_fit_linERR_wf(formula1,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],
+                        times=cohort_wf[,10:44],covars=cohort_wf[,c("sex","country")],
+                        lag=2,exclusion_done = FALSE)
 
-fit2 <- f_fit_linERR_wf(formula2,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],times=cohort_wf[,10:44],
-                        covars=cohort_wf[,c("sex","country")],lag=2,exclusion_done = F)
+fit2 <- f_fit_linERR_wf(formula2,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],
+                        times=cohort_wf[,10:44],covars=cohort_wf[,c("sex","country")],
+                        lag=2,exclusion_done = FALSE)
 
 # display a summary
 summary(fit1)

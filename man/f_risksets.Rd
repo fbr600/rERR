@@ -7,7 +7,8 @@
 f_risksets(formula, data, lag, id_name, time_name)
 }
 \arguments{
-\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
+\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
 
 \item{data}{event format data set than is ouput of the functions f_to_event...}
 
@@ -26,5 +27,5 @@ The riskset of a case inculde the subjects that are in the cohort when the case 
 if S_entry_time < ft <= S_exit_time.
 }
 \examples{
-\\donotrun{ f_riskset(formula,data,lag=2,id_name='patientids',time_name='time')}
+\dontrun{ f_riskset(formula,data,lag=2,id_name='patientids',time_name='time')}
 }

@@ -7,7 +7,8 @@
 f_parse_formula(formula)
 }
 \arguments{
-\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
+\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
 }
 \value{
 list of terms in the formula
@@ -16,5 +17,5 @@ list of terms in the formula
 Return list with the terms and elements of the formula
 }
 \examples{
-\\donotrun{ f_parse_formula(formula)}
+\dontrun{ f_parse_formula(formula)}
 }

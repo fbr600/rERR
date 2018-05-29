@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{a summary.ERR object}
+
+\item{\ldots}{for future methods}
 }
 \description{
 Print the summary of rERR fit

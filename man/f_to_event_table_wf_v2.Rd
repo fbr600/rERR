@@ -29,3 +29,8 @@ The data set with the event-row format, including the event of exit of the cohor
 \description{
 This function organize an input data set wf (wide format) to ef(event format), same as f_to_event_table_wf_all but with the start, stop and outcome from the formula
 }
+\examples{
+\dontrun{ f_to_event_table_wf_v2(id='patientids',start='entry_age',stop='exit_age',\\cr
+                              outcome='leukaemia',data,times=data[,11:30],doses=data[,31:50],\\cr
+                              covars=data[,c('sex','country','birthcohort')])}
+}

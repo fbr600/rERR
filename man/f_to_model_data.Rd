@@ -7,7 +7,8 @@
 f_to_model_data(formula, data, id_name, time_name)
 }
 \arguments{
-\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
+\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
 
 \item{data}{data set}
 
@@ -19,9 +20,10 @@ f_to_model_data(formula, data, id_name, time_name)
 data set described below
 }
 \description{
-Transform the data set in a closed form n_row|id_name|n_pe|entry_name|exit_name|outcome|time|linear_covariates|loglinear_covariates.
+Transform the data set in a closed form n_row | id_name | n_pe | entry_name | exit_name | outcome | time | \cr
+linear_covariates | loglinear_covariates.\cr
 Expand if a variable is categorical to pure logical n_categories variables (excluding the reference category)
 }
 \examples{
-\\donotrun{ f_to_model_data(formula,data,id_name='patientids',time_name='time')}
+\dontrun{f_to_model_data(formula,data,id_name='patientids',time_name='time')}
 }

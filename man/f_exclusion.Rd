@@ -7,7 +7,8 @@
 f_exclusion(formula, data, lag)
 }
 \arguments{
-\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
+\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
 
 \item{data}{initial data set}
 
@@ -20,5 +21,5 @@ a data set with the exclusion updated
 Exclude subjects in the cohort that have less than lag time of follow up
 }
 \examples{
-\\donotrun{ f_exclusion(formula,data,lag)}
+\dontrun{f_exclusion(formula,data,lag)}
 }

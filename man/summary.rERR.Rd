@@ -4,10 +4,12 @@
 \alias{summary.rERR}
 \title{summary of a ERR fit}
 \usage{
-\method{summary}{rERR}(object)
+\method{summary}{rERR}(object, ...)
 }
 \arguments{
 \item{object}{an object of class rERR}
+
+\item{\ldots}{for future methods}
 }
 \value{
 a list with the summary elements
@@ -16,5 +18,5 @@ a list with the summary elements
 display summary of the parameter and statistics of the model
 }
 \examples{
-\\donotrun{ summary(fit)}
+\dontrun{summary(fit)}
 }

@@ -18,5 +18,5 @@ a list containing the lrt statistic and the corresponding p_value from the Chi-s
 function that thtat compute the lrt test for a nested and a nesting models
 }
 \examples{
-\\donotrun{ lrt(fit1,fit2)}
+\dontrun{ lrt(fit1,fit2)}
 }

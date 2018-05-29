@@ -7,7 +7,8 @@
 f_to_event_table_wf_all(formula, data, id_name, doses, times, covars)
 }
 \arguments{
-\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
+\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
 
 \item{data}{input data set - event format data set}
 
@@ -24,6 +25,10 @@ The data set with the event-row format, including the event of exit of the cohor
 }
 \description{
 This function organize an input data set wf (wide format, same input as in Epicrue Peanuts), to the required ef data set for the model.
-It appends an index of person event 1,2..n,0 if a subject has n doses (or grouped doses), and being the 0-row the exit conditions: exit time, exit dose and the outcome. 
+It appends an index of person event 1,2..n,0 if a subject has n doses (or grouped doses), and being the 0-row the exit conditions: exit time, exit dose and the outcome.
 Also creates the cumulated dose.
+}
+\examples{
+\dontrun{f_to_event_table_wf_all(formula,data,id_name='patientids',doses=data[,31:50],\\cr
+                             times=data[,11:30],covars=data[,c('sex','country','birthcohort')])}
 }

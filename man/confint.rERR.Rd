@@ -4,10 +4,12 @@
 \alias{confint.rERR}
 \title{Confidence intervals}
 \usage{
-\method{confint}{rERR}(object)
+\method{confint}{rERR}(object, ...)
 }
 \arguments{
 \item{object}{an object of class rERR}
+
+\item{\ldots}{for future methods}
 }
 \value{
 a list with the confidence intervals
@@ -17,5 +19,5 @@ Show the confidence intervals for each parameter of the model.
 The likelihood ratio test ci for linear varaibles, and the Wald ci for the loglinear terms
 }
 \examples{
-\\donotrun{ ci.rERR(fit)}
+\dontrun{ci.rERR(fit)}
 }

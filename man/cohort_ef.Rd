@@ -4,7 +4,7 @@
 \name{cohort_ef}
 \alias{cohort_ef}
 \title{Simulated cohort of subjects exposed to ct scans}
-\format{A data frame with 93017 rows and 8 variables:
+\format{A data frame with 41744 rows and 8 variables:
 \describe{
   \item{id}{subject identificator, integer}
   \item{sex}{sex of the subject, 1-male / 2-female}

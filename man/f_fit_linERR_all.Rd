@@ -7,7 +7,8 @@
 f_fit_linERR_all(formula, data, id_name, time_name, lag)
 }
 \arguments{
-\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
+\item{formula}{Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)}
 
 \item{data}{data set returned from f_to_model_data}
 
@@ -24,5 +25,5 @@ rERR object with the estimation
 function that calls the optimization (mle from stats4 package, so use optim), and return a rERR object with the estimation and summary
 }
 \examples{
-\\donotrun{ f_fit_linERR_all(formula,data,id_name,time_name,lag)}
+\dontrun{ f_fit_linERR_all(formula,data,id_name,time_name,lag)}
 }
