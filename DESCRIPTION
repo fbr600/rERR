@@ -1,15 +1,17 @@
 Package: rERR
-Title: Title: rERR is a package that fits excess relative risk (ERR) models in survival analysis
+Title: Excess Relative Risk Models
 Version: 0.0.0.9000
-Authors@R: person("Francesc", "Badia_Roca", email = "francesc.badia@isglobal.org", role = c("aut", "cre"))
+Author: David Moriña Soler (Catalan Institute of Oncology (ICO)-IDIBELL) <david.morina@uab.cat>,
+         Francesc Badia Roca (ISGlobal) <francesc.badia@isglobal.org>
+Description: This package fits excess relative risk (ERR) models in survival analysis.
 Depends: R (>= 3.5.0)
-License: GPL-2 | GPL-3
+License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-Imports: survival,
-    stats4,
-    plyr,
-    dplyr,
-    reshape2
-Suggests: testthat
+Imports: survival, stats4, plyr, dplyr, reshape2, numDeriv, ggplot2
+Maintainer: Francesc Badia Roca <francesc.badia@isglobal.org>
+Suggests: testthat, knitr, rmarkdown
+VignetteBuilder: knitr
+NeedsCompilation: yes
+Packaged: 2018-05-29 10:39:07 UTC; fbadia
