@@ -64,7 +64,7 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
   Change the path to the download folder in the following code and run it in RStudio:
   
   ```
-  install.packages("path_to_downloads_folder/rERR_0.0.0.9000.zip", repos = NULL, type = "win.binary")
+  install.packages("path_to_downloads_folder/rERR.zip", repos = NULL, type = "win.binary")
   install.packages("devtools")
   devtools::install_deps(paste0(.libPaths(),"/rERR"))
   ```
