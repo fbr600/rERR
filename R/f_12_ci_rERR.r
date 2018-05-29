@@ -3,10 +3,11 @@
 #' Show the confidence intervals for each parameter of the model.
 #' The likelihood ratio test ci for linear varaibles, and the Wald ci for the loglinear terms
 #' @param object an object of class rERR
+#' @param \ldots for future methods
 #' @return a list with the confidence intervals
-#' @examples \donotrun{ ci.rERR(fit)}
+#' @examples \dontrun{ci.rERR(fit)}
 #' @export
-confint.rERR <- function(object)
+confint.rERR <- function(object, ...)
 {
   n_lin    <- ifelse(is.null(attr(object,"lrt_ci")),0,nrow(attr(object,"lrt_ci")))
   n_loglin <- ifelse(is.null(attr(object,"wald_ci")),0,nrow(attr(object,"wald_ci")))

@@ -3,13 +3,14 @@
 #' Computes the riskset for each case with the relevant variables in the formula and the stratification vars specified in strata() part of the formula.
 #' The riskset of a case inculde the subjects that are in the cohort when the case ocurs: so a subject S belongs to the riskset R of the case that have a 'fail' at time ft,
 #' if S_entry_time < ft <= S_exit_time.
-#' @param formula Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)
+#' @param formula Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
+#'                     lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)
 #' @param data event format data set than is ouput of the functions f_to_event...
 #' @param lag latency period
 #' @param id_name name of variable containing the names of subjects
 #' @param time_name name of the time variable
 #' @return a named list with integer vectors containing the number of rows that are in each the riskset (relevant person-time)
-#' @examples \donotrun{ f_riskset(formula,data,lag=2,id_name='patientids',time_name='time')}
+#' @examples \dontrun{ f_riskset(formula,data,lag=2,id_name='patientids',time_name='time')}
 #' @importFrom plyr arrange 
 #' @importFrom dplyr summarize 
 #' @importFrom dplyr group_by 
@@ -18,6 +19,10 @@
 
 f_risksets<-function(formula,data,lag,id_name,time_name)
 {
+  # to avoid NOTE: 'no visible binding for global variable ...' in check
+  id    <- NULL
+  n_row <- NULL
+  
   # formula left side
   formula_sv <- formula[[2]]
   
@@ -105,7 +110,6 @@ f_risksets<-function(formula,data,lag,id_name,time_name)
   nrows_cases_ <- vector()
   for(i in 1:length(failtimes))
   {
-    
     dt <- data[which(v_entry<failtimes[i] & v_exit>=failtimes[i]),1:7]
     dt <- dt[which(dt[,7] <= failtimes[i]-lag),]
     names(dt)[c(2,4:6,7)] <- c("id","entry","exit","outcome","time")

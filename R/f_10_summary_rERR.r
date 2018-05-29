@@ -2,10 +2,11 @@
 #' 
 #' display summary of the parameter and statistics of the model
 #' @param object an object of class rERR
+#' @param \ldots for future methods
 #' @return a list with the summary elements
-#' @examples \donotrun{ summary(fit)}
+#' @examples \dontrun{summary(fit)}
 #' @export
-summary.rERR <- function(object)
+summary.rERR <- function(object, ...)
 {
   n_lin    <- nrow(attr(object,"lrt_ci"))
   n_loglin <- ifelse(is.null(attr(object,"wald_ci")),0,nrow(attr(object,"wald_ci")))

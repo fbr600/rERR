@@ -4,7 +4,7 @@
 #' @param fit1 the nested model
 #' @param fit2 the nesting model
 #' @return a list containing the lrt statistic and the corresponding p_value from the Chi-square test
-#' @examples \donotrun{ lrt(fit1,fit2)}
+#' @examples \dontrun{ lrt(fit1,fit2)}
 #' @importFrom stats pchisq
 #' @export
 

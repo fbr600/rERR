@@ -1,6 +1,7 @@
-#' fit Excess Relative Risk Model 
+#' plot likelihood function from wf
 #' 
-#' function that calls the optimization (mle from stats4 package, so use optim) from an event format data set, and return a rERR object with the estimation and summary
+#' plot the partial log likelihood function in the case of one dimension in the linear part
+#' @param object an rERR class object
 #' @param formula Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
 #'                     lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)
 #' @param data data set returned from f_to_model_data
@@ -11,35 +12,21 @@
 #' @param lag latency period
 #' @param exclusion_done a logical indicating wheather the exclusion is already done or not
 #' @return rERR object with the estimation
-#' @examples 
+#' @examples
 #' # set the formulas for the models
-#' formula1 <- Surv(AgeAtEntry,age_at_event,outcome) ~ lin(dose_cum) + strata(sex)
-#' formula2 <- Surv(AgeAtEntry,age_at_event,outcome) ~ loglin(factor(country)) + lin(dose_cum) + 
-#'                                                     strata(sex)
-#' 
-#'   
-#' # fit the models
+#' formula1  <- Surv(AgeAtEntry,age_at_event,outcome) ~ lin(dose_cum) + strata(sex)
+#'
+#' # fit the model
 #' fit1 <- f_fit_linERR_wf(formula1,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],
 #'                         times=cohort_wf[,10:44],covars=cohort_wf[,c("sex","country")],
 #'                         lag=2,exclusion_done = FALSE)
-#' 
-#' fit2 <- f_fit_linERR_wf(formula2,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],
-#'                         times=cohort_wf[,10:44],covars=cohort_wf[,c("sex","country")],
-#'                         lag=2,exclusion_done = FALSE)
-#' 
-#' # display a summary
-#' summary(fit1)
-#' summary(fit2)
-#'
-#' # confidence intervals
-#' confint(fit1)
-#' confint(fit2) 
-#'
-#' # likelihood ratio test between nested and nesting models#' 
-#' f_lrt(fit1,fit2)
-#' 
+#'                         
+#' # plot the partial loglikelihood function
+#' f_plot_linERR_wf(fit1,formula1,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],
+#'                  times=cohort_wf[,10:44],covars=cohort_wf[,c("sex","country")],
+#'                  lag=2,exclusion_done = FALSE)
 #' @export
-f_fit_linERR_wf <- function (formula, data, id_name, doses,times, covars,lag,exclusion_done=F) 
+f_plot_linERR_wf <- function (object,formula, data, id_name, doses, times, covars,lag,exclusion_done=F) 
 {
   if(!exclusion_done)
   {
@@ -49,6 +36,7 @@ f_fit_linERR_wf <- function (formula, data, id_name, doses,times, covars,lag,exc
     times          <- times[attr(data,"rows_to_keep"),]
     covars         <- covars[attr(data,"rows_to_keep"),]
   }
+  
   form         <- f_parse_formula(formula)
   entry_name   <- as.character(form$Surv$entry)
   exit_name    <- as.character(form$Surv$exit)
@@ -61,7 +49,8 @@ f_fit_linERR_wf <- function (formula, data, id_name, doses,times, covars,lag,exc
   n_lin_vars    <- attr(dt2, "n_lin_vars")
   n_loglin_vars <- attr(dt2, "n_loglin_vars")
   rsets         <- f_risksets(formula, data = dt2, lag, id_name, time_name="time")
-  fit           <- f_fit_linERR(formula, data = dt2, rsets, n_lin_vars, 
-                                n_loglin_vars, id_name, time_name="time")
-  return(fit)
+  
+  f_plot_linERR(object,formula, data = dt2, rsets, n_lin_vars, 
+                n_loglin_vars, id_name, time_name="time")
+  
 }

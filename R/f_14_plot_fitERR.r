@@ -1,6 +1,7 @@
-#' fit Excess Relative Risk Model (internal use)
+#' plot the likelihood 
 #' 
-#' function that calls the optimization (mle from stats4 package, so use optim), and return a rERR object with the estimation and summary
+#' plot the partial log likelihood function in the case of one dimension in the linear part
+#' @param object An rERR class object
 #' @param formula Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
 #'                     lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)
 #' @param data data set returned from f_to_model_data
@@ -13,6 +14,7 @@
 #' @examples \dontrun{f_fit_linERR(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,time_name)}
 #' @import survival
 #' @import stats4
+#' @import ggplot2
 #' @importFrom stats qchisq 
 #' @importFrom stats uniroot 
 #' @importFrom stats pnorm 
@@ -20,8 +22,12 @@
 #' @importFrom stats pchisq
 #' @importFrom numDeriv hessian
 #' @export
-f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,time_name)
+f_plot_linERR <- function(object,formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,time_name)
 {
+  
+  # to avoid the note in the package check
+  log_Likelihood <- NULL
+  
   # formula left side
   formula_sv <- formula[[2]]
   
@@ -125,113 +131,41 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
     reduction <- reduction^2
   )
   
-  # optimization
-  res <- mle(minuslogl = p.est,start = beta,method = "L-BFGS-B",lower=llim*reduction)
-   
-  # summary
-  names                       <- names(data)[8:(8+n_lin_vars+n_loglin_vars-1)]
-  names(attr(res,"coef"))     <- names
-  names(attr(res,"fullcoef")) <- names
-  attr(res,"desc")            <- list(desc=list(n_events=length(rsets),
-                                      n_observations=length(data$n_pe[which(data$n_pe!=0)]),
-                                      n_subjects=length(data$n_pe[which(data$n_pe==1)])))
-  
   # lrt confidence interval: only for linear varaibles
-  if(n_lin_vars > 0)
+  if(n_lin_vars == 1)
   {
-    lrt_ci_mat           <- matrix(nrow=n_lin_vars,ncol=2)
-    rownames(lrt_ci_mat) <- names[1:n_lin_vars]
-    colnames(lrt_ci_mat) <- c("lower .95","upper .95")
-    
-    for(i in 1:n_lin_vars)
+    beta_good <- attr(object,"coef")
+    llik      <- attr(object,"details")$value
+    prob      <- .95
+    llim      <- constr*.999
+    g <- function(x)
     {
-      attr(res,"details")
+      aux        <- beta_good
+      aux        <- as.list(aux)
+      aux[[1]]   <- x
+      names(aux) <- paste0("x",1:length(aux))
       
-      beta_good <- attr(res,"coef")
-      llik      <- attr(res,"details")$value
-      prob      <- .95
-      llim      <- constr*.999
-      g <- function(x)
-      {
-        aux        <- beta_good
-        aux        <- as.list(aux)
-        aux[[i]]   <- x
-        names(aux) <- paste0("x",1:length(aux))
-        
-        y          <- do.call(p.est,aux)
-        
-        return(-y + llik + qchisq(prob, 1)/2)
-      }
-      # find interval as 0 of g function g(beta) = minulsloglik(beta) + minusloglik(beta_est) +  qchisq(prob, 1)/2)
-      l1_t <- try(uniroot(g,lower=llim[i],upper=beta_good[i],extendInt="no")$root)
-      l2_t <- try(uniroot(g,lower=beta_good[i],upper=100000, extendInt = "yes")$root)
-      if(is.numeric(l1_t))
-        l1 <- l1_t
-      else
-        l1 <- -Inf
-      if(is.numeric(l2_t))
-        l2 <- l2_t
-      else
-        l2 <- Inf
-      #print(c(l1,l2))
-      if(beta_good[i]>l2)
-        l2 <- Inf
-      lrt_ci_mat[i,1] <- l1
-      lrt_ci_mat[i,2] <- l2
+      y          <- do.call(p.est,aux)
+      
+      return(-y )
     }
-    attr(res,"lrt_ci") <- lrt_ci_mat
-    sum                <- summary(res)
-    coef               <- attr(sum,"coef")[1:n_lin_vars,1]
-    se                 <- attr(sum,"coef")[1:n_lin_vars,2]
+    beta_good <- attr(object,"coef")
     
-    coef_mat           <- matrix(nrow=n_lin_vars,ncol=4)
-    rownames(coef_mat) <- names[1:n_lin_vars]
-    colnames(coef_mat) <- c("coef","se(coef)","z","Pr(>|z|)")
-    coef_mat[,1]       <- coef
-    coef_mat[,2]       <- se
-    coef_mat[,3]       <- coef_mat[,1]/coef_mat[,2]
-    coef_mat[,4]       <- 2*(1-pnorm(abs(coef_mat[,3])))
+    attr(object,"lrt_ci")[2]
     
-    attr(res,"lin_coef") <- coef_mat
+    x <- seq(from=llim[1],to=attr(object,"lrt_ci")[2]*1.5,length.out = 100)
+    y <- unlist(lapply(x,g))
+    dt <- data.frame(x=x,log_Likelihood=y) 
+    
+    ggplot2::ggplot(dt,ggplot2::aes(x=x,y=log_Likelihood))+ggplot2::geom_line()+
+      ggplot2::geom_vline(xintercept = attr(object,"fullcoef")[1],col="red")+
+      ggplot2::geom_hline(yintercept = -attr(object,"details")$value-qchisq(.95,1)/2,col="red")+
+      ggplot2::xlab("beta")+
+      ggplot2::ylab("Partial Log Likelihood")+
+      ggplot2::ggtitle(paste0("Maximum Likelihood Estimate: beta = ",sprintf("%.4f",beta_good),"\n95% Lrt ci: ( ",
+                              sprintf("%.3f",attr(object,"lrt_ci")[1])," , ",sprintf("%.3f",attr(object,"lrt_ci")[2])," )"))
+    
   }
   
-  # wald ci for loglinear variables
-  if(n_loglin_vars>0)
-  {
-    sum <- summary(res)
-    coef <- attr(sum,"coef")[(n_lin_vars+1):(n_lin_vars+n_loglin_vars),1]
-    se   <- attr(sum,"coef")[(n_lin_vars+1):(n_lin_vars+n_loglin_vars),2]
-    
-    coef_mat           <- matrix(nrow=n_loglin_vars,ncol=5)
-    rownames(coef_mat) <- names[(n_lin_vars+1):(n_lin_vars+n_loglin_vars)]
-    colnames(coef_mat) <- c("coef","exp(coef)","se(coef)","z","Pr(>|z|)")
-    
-    coef_mat[,1] <- coef
-    coef_mat[,2] <- exp(coef)
-    coef_mat[,3] <- se
-    coef_mat[,4] <- coef_mat[,1]/coef_mat[,3]
-    coef_mat[,5] <- 2*(1-pnorm(abs(coef_mat[,4])))
-    
-    conf_mat           <- matrix(nrow=n_loglin_vars,ncol=4)
-    colnames(conf_mat) <- c("exp(coef)","exp(-coef)","lower .95","upper .95")
-    rownames(conf_mat) <- names[(n_lin_vars+1):(n_lin_vars+n_loglin_vars)]
-    conf_mat[,1]       <- exp(coef)
-    conf_mat[,2]       <- exp(-coef)
-    conf_mat[,3]       <- exp(coef_mat[,1]-qnorm(0.975,mean=0,sd=1)*se)
-    conf_mat[,4]       <- exp(coef_mat[,1]+qnorm(0.975,mean=0,sd=1)*se)
-    
-    attr(res,"wald_ci")     <- conf_mat
-    attr(res,"loglin_coef") <- coef_mat
-  }
   
-  # lrt: against null
-  lrt_stat <- 2 *(-attr(res,"details")$value - sum(log(1/unlist(lapply(rsets,length)))))
-  lrt_pval <- 1 - pchisq(lrt_stat,1,lower.tail = T)
-  
-  attr(res,"formula") <- formula
-  attr(res,"lrt")     <- list(lrt_stat=lrt_stat,lrt_pval=lrt_pval)
-  attr(res,"se")      <- attr(summary(res),"coef")[,2]
-  attr(res,"AIC")     <- AIC(res)
-  class(res)          <- "rERR"
-  return(res)
 }

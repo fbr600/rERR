@@ -1,9 +1,10 @@
 #' Parse formula (internal use)
 #'
 #' Return list with the terms and elements of the formula
-#' @param formula Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)
+#' @param formula Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
+#'                     lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)
 #' @return list of terms in the formula
-#' @examples \donotrun{ f_parse_formula(formula)}
+#' @examples \dontrun{ f_parse_formula(formula)}
 #' @export
 f_parse_formula <- function(formula)
 {

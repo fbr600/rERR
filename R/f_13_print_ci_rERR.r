@@ -2,6 +2,7 @@
 #' 
 #' Print the cofnidence intervals of rERR fit
 #' @param x a ci.ERR object
+#' @param \ldots for future methods
 #' @export
 print.ci.rERR <- function (x, ...) 
 {

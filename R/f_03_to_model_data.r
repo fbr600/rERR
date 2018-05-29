@@ -1,18 +1,24 @@
 #' Data transformation: keep model variables and expand categorical variables (internal use)
 #' 
-#' Transform the data set in a closed form n_row|id_name|n_pe|entry_name|exit_name|outcome|time|linear_covariates|loglinear_covariates.
+#' Transform the data set in a closed form n_row | id_name | n_pe | entry_name | exit_name | outcome | time | \cr
+#' linear_covariates | loglinear_covariates.\cr
 #' Expand if a variable is categorical to pure logical n_categories variables (excluding the reference category)
-#' @param formula Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)
+#' @param formula Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+\cr
+#'                     lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)
 #' @param data data set
 #' @param id_name name of variable containing the names of subjects
 #' @param time_name name of the time variable
 #' @return data set described below
-#' @examples \donotrun{ f_to_model_data(formula,data,id_name='patientids',time_name='time')}
+#' @examples \dontrun{f_to_model_data(formula,data,id_name='patientids',time_name='time')}
 #' @importFrom plyr arrange
 #' @export
 
 f_to_model_data <- function(formula,data,id_name,time_name)
 {
+  # to avoid NOTE: 'no visible binding for global variable ...' in check
+  id_aux    <- NULL
+  time_aux  <- NULL
+  
   # formula left side
   formula_sv <- formula[[2]]
   

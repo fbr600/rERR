@@ -2,6 +2,7 @@
 #' 
 #' Print the summary of rERR fit
 #' @param x a summary.ERR object
+#' @param \ldots for future methods
 #' @export
 print.summary.rERR <- function (x, ...) 
 {
