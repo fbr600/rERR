@@ -22,6 +22,8 @@
 #
 #   context("risk sets")
 
+library(dplyr)
+
 context("Exclusion in wf")
 
 formula <- Surv(AgeAtEntry,age_at_event,outcome) ~ lin(dose_cum)+strata(sex)
@@ -88,7 +90,7 @@ test_that("Subjects are the same after the transformation",
 
 test_that("the same number of outcomes in both data sets",
 { 
-  aux <- distinct(cohort_ef[,c("id","outcome")])
+  aux <- dplyr::distinct(cohort_ef[,c("id","outcome")])
   expect_equal( sum(aux$outcome) , sum(dt$outcome))
 })
 
