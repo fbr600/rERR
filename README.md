@@ -59,7 +59,7 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
   ```
 * Without compilation:
 
-  You can download the .zip file [here](https://github.com/fbr600/rERR_binnary/raw/master/rERR_0.0.0.9000.zip).
+  You can download the .zip file [here](https://github.com/fbr600/rERR_binnary/raw/master/rERR.zip).
   
   Change the path to the download folder in the following code and run it in RStudio:
   
