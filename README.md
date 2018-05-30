@@ -70,7 +70,7 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
   install.packages("devtools")
   devtools::install_deps(paste0(.libPaths(),"/rERR"))
   ```
-  
+[back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
 
 ## Model Specification
 
@@ -106,7 +106,8 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
 The data transformation required by the model computes the cumulative dose within the subject level over time, *dose_cum*, so this is a time-dependent variable, that is the cumulative dose recieved by each subject at every time. 
 
 This variable always can be used as a variable, or can be used to recompute new variables such as other polynomic terms, cateogrizations of dose...
-  
+
+[back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
 
 ## Latency period (lag) and exclusion
 
@@ -123,6 +124,7 @@ So, imposing a latency period implies two actions:
 * Remove subjects that have a follow-up shorter than lag period time
 * Set the entry time to the cohort as 1st Exposure Time + lag , which is the moment in which a subject start being at risk
 
+[back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
 
 ## Examples
 Two different formats of data sets are allowed: 
@@ -235,6 +237,8 @@ $lrt
 $lrt_pval
 [1] 0.3835023
 ```
+[back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
+
 ### Using a wide format data set as input cohort
 ##### load library
 ```
@@ -343,6 +347,8 @@ $lrt_pval
 [1] 0.0004224168
 ```
 
+[back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
+
 ### Save time in multi analysis of the same data set
 
 The process of fitting the model include an internal transformation of the data that can slow down the time of all process.
@@ -414,6 +420,8 @@ Then if the exclusion and the data transfomration are common in two analysis, we
 # fit the second model
 > fit2          <- f_fit_linERR_all(formula2,data=dt1,id_name,time_name)
 ```
+
+[back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
 
 ### Using Categorical Exposure
 
@@ -497,6 +505,8 @@ Deviance:  297.9834
 Number of risk sets:  18
 ```
 
+[back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
+
 ### Plot the partial log likelihood function
 
 There is an option to display the shape of the log likelihood function:
@@ -518,3 +528,4 @@ And it appears the following plot:
 
 ![](https://image.ibb.co/nqqQXd/Rplot.png)
 
+[back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
