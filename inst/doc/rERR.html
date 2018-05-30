@@ -12,7 +12,7 @@
 
 <meta name="author" content="Francesc Badia Roca" />
 
-<meta name="date" content="2018-05-29" />
+<meta name="date" content="2018-05-30" />
 
 <title></title>
 
@@ -46,6 +46,7 @@
 <li><a href="https://github.com/fbr600/rERR#using-a-wide-format-data-set-as-input-cohort">Using a wide format data set as input cohort</a></li>
 <li><a href="https://github.com/fbr600/rERR#save-time-in-multi-analysis-of-the-same-data-set">Save time in multi analysis of the same data set</a></li>
 <li><a href="https://github.com/fbr600/rERR#using-categorical-exposure">Using Categorical Exposure</a></li>
+<li><a href="https://github.com/fbr600/rERR/blob/master/README.md#plot-the-partial-log-likelihood-function">Plot the partial log likelihood function</a></li>
 </ul>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
@@ -71,6 +72,7 @@
 </div>
 <p>where <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAAAKBAMAAAAds/7kAAAALVBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAOrOgAAAADnRSTlMAIs3dEFR2MmZEiZnvu7rBvHIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAACcSURBVBgZY2AQMmFlwA7gMokVCQy+WNUAZVhug2U4GVhzsCph4GRg2AqSYSlgYODBqgQkYwKSEWQQwaEEKMNiENXAwL5CcgNISRVQdTUDA/sGMAXigmRYb7ALMLiynnUAKemZwMAQ48DAegRMgbggGe5dQGEwACphgbEhIlAus/uFArAA57p0BlYHiByUhHJ5GXYghD0RTBALiQsAgmccj6ggapUAAAAASUVORK5CYII=" /> are the covariates.</p>
 <p>This package is an R impelementation of models that are rarely implemented outside Epicure: the Linear Excess Relative Risk model allowing time dependent covariates, time dependent adjustments, lagged exposures and stratification.</p>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
 </div>
 <div id="installing" class="section level2">
 <h2>Installing</h2>
@@ -79,9 +81,9 @@
 </ul>
 <p>The package can be installed directly in RStudio from github:</p>
 <p><code>install.packages(&quot;devtools&quot;)   devtools::install_github(&quot;fbr600/rERR&quot;)</code> * Without compilation:</p>
-<p>You can download the .zip file <a href="https://github.com/fbr600/rERR_binnary/raw/master/rERR_0.0.0.9000.zip">here</a>.</p>
+<p>You can download the .zip file <a href="https://github.com/fbr600/rERR_binnary/raw/master/rERR.zip">here</a>.</p>
 <p>Change the path to the download folder in the following code and run it in RStudio:</p>
-<p><code>install.packages(&quot;path_to_downloads_folder/rERR_0.0.0.9000.zip&quot;, repos = NULL, type = &quot;win.binary&quot;)   install.packages(&quot;devtools&quot;)   devtools::install_deps(paste0(.libPaths(),&quot;/rERR&quot;))</code></p>
+<p><code>install.packages(&quot;path_to_downloads_folder/rERR.zip&quot;, repos = NULL, type = &quot;win.binary&quot;)   install.packages(&quot;devtools&quot;)   devtools::install_deps(paste0(.libPaths(),&quot;/rERR&quot;))</code> <a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
 </div>
 <div id="model-specification" class="section level2">
 <h2>Model Specification</h2>
@@ -107,6 +109,7 @@
 </ul>
 <p><strong>Observation</strong> The data transformation required by the model computes the cumulative dose within the subject level over time, <em>dose_cum</em>, so this is a time-dependent variable, that is the cumulative dose recieved by each subject at every time.</p>
 <p>This variable always can be used as a variable, or can be used to recompute new variables such as other polynomic terms, cateogrizations of dose…</p>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
 </div>
 <div id="latency-period-lag-and-exclusion" class="section level2">
 <h2>Latency period (lag) and exclusion</h2>
@@ -119,6 +122,7 @@
 
 </div>
 <p>So, imposing a latency period implies two actions: * Remove subjects that have a follow-up shorter than lag period time * Set the entry time to the cohort as 1st Exposure Time + lag , which is the moment in which a subject start being at risk</p>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
 </div>
 </div>
 <div id="examples" class="section level2">
@@ -223,6 +227,7 @@ $lrt
 
 $lrt_pval
 [1] 0.3835023</code></pre>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
 </div>
 </div>
 <div id="using-a-wide-format-data-set-as-input-cohort" class="section level3">
@@ -326,6 +331,7 @@ $lrt
 
 $lrt_pval
 [1] 0.0004224168</code></pre>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
 </div>
 </div>
 <div id="save-time-in-multi-analysis-of-the-same-data-set" class="section level3">
@@ -387,6 +393,7 @@ $lrt_pval
 
 # fit the second model
 &gt; fit2          &lt;- f_fit_linERR_all(formula2,data=dt1,id_name,time_name)</code></pre>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
 </div>
 <div id="using-categorical-exposure" class="section level3">
 <h3>Using Categorical Exposure</h3>
@@ -439,7 +446,28 @@ dose_cat_[100,1e+03) -14.0343748 8.034308e-07 2372.656914 -0.005915046 0.9952805
 AIC:  305.9834 
 Deviance:  297.9834 
 Number of risk sets:  18</code></pre>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
 </div>
+</div>
+<div id="plot-the-partial-log-likelihood-function" class="section level3">
+<h3>Plot the partial log likelihood function</h3>
+<p>There is an option to display the shape of the log likelihood function:</p>
+<pre><code># set the formulas for the models
+formula1  &lt;- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
+
+# fit the model
+fit1 &lt;- f_fit_linERR_ef(formula1,data=cohort_ef,id_name=&quot;id&quot;,dose_name=&quot;dose&quot;,
+                        time_name=&quot;age&quot;,covars_names=c(&quot;sex&quot;),lag=2,exclusion_done=TRUE)
+
+# plot the partial loglikelihood function
+f_plot_linERR_ef(fit1,formula1,data=cohort_ef,id_name=&quot;id&quot;,dose_name=&quot;dose&quot;,
+                 time_name=&quot;age&quot;,covars_names=c(&quot;sex&quot;),lag=2,exclusion_done=TRUE)</code></pre>
+<p>And it appears the following plot:</p>
+<div class="figure">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAGQCAMAAAAKgJCLAAABO1BMVEUAAAAAADoAAGYAOjoAOmYAOpAAZrYzMzM6AAA6ADo6AGY6OgA6OmY6OpA6ZmY6ZpA6ZrY6kLY6kNtNTU1NTW5NTY5NbqtNjshmAABmADpmOgBmOjpmOmZmZjpmkJBmkNtmtpBmtrZmtttmtv9uTU1uTW5uTY5ubo5ubqtuq+SOTU2OTW6OTY6Obk2ObquOyP+QOgCQOmaQZgCQZjqQZmaQZraQkDqQkGaQkLaQkNuQtmaQtpCQttuQtv+Q27aQ2/+rbk2rbm6rjk2r5OSr5P+2ZgC2Zjq2kDq2tpC2ttu225C229u22/+2/9u2///Ijk3I///bkDrbkGbbtmbbtpDb27bb29vb/7bb/9vb///kq27k///r6+v/AAD/tmb/yI7/25D/27b/29v/5Kv//7b//8j//9v//+T///+6ARFoAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAUBUlEQVR4nO2dCXvbxhGGIduimTshfTBqm7aWk/iKxd5t6taKIyZt4lhi7DbRYZqqSAr//xd0DxyLxYJYEuBilvy+57EFEpidwb6YPYAlGYSQ5wqaDgCqKiD0XkDovYDQewGh9wJC7wWE3gsIvdeyCAfvPom2Xv2iY9g/628fL1Le8MqL1HDSa5nKi/+VlTXrx+bDIJJa3viXL+aHxw8wyRBW8cEZne8EwbvPzS8HstBX7wTBNfHeQERsqlSzlkYYbD0VG+O20RthhNzV3GKSWDQZERYdnDXkMSQHZl4OZWwjESav01nfFcKtd6ST4dW2vbdiZWqiAKH6d54UhKb6La302hEOg4+OZ98mVJSXs2/k5TXrbz0J2XstnhO7pQVmtDTCK38WdTnrfyIQvmTtwNaveXgdfkl1eFWP252XbfbmqB18cBxVPq/e7PvRaeWycNbnb8VtjpKFP+0IT3KfbHvSrZft4Nr3RoSzP7AI78iL3BBecgryAKW1GwVRnbKw2LGpR7Y3Pjg+/ei4KPcj7/GZRxef8nLS2/qNuC7GohLFe6OoebPW8gi/e4u7Gr/9HfcetVi7ouInvSsvZB2932Zn9ve2aMlUhOr7UjmErKDnopmW7UuK8NqO9MSrPmp70i0Rx7UdA8KofdpVEWbCiE8hojJOS08RXm1H78V7o4OT04+OyyKMsneQfzn5U6bTEM3H8MqX7DpZAOPyCH/o8wtn0OIXUFzfLX7CraFAyesouBO+lPUR92ISofq+LE9HyFoW0S+wvAlftVsKwoCZ/CguCVYKqzzxXrTFruon4Xk/0PtCVta4/eGxjDDuC/XwklOQB8SeUzE0ogVsqXvlwYmtSTLFwmEyelBfqgh5xUWjmcC+NV0e4YuBaAl2o4j++68/tkXVDcQ1LeuoxUPcPg7TgYhEqL4fRa8hHIgTjM9WZrX8xw/k5x3VGDtQ3eqEal1mEF795PvEVT485RT4Aann9JzFsaKdUfZGRySnb5Atwpey4thVyDbtR4MVEPJGexSdjmxYAtmsy/wRnU0c4iCLUH1flqchjIZkowRBdkQqSxEX6oiDi7dkm2cezoir+4PnKsJMGOkp8ANSz+k5T3px3St7hQvl9MN8Q2qHkI1sFGwD+x6xAkJ+RgMJhAX9/l///ZOIZiQagYoIt+6IbKsTYfhqR9aqGaFyCgsjVE8/NPWFnajKDC9jhKw3UEf2QycI+ZCGVR6vCVmJUct0bcd8mQ/SJrAUYdROpgNsE8KihjRtm/QR/39+zxibESqnIBvSfGckj5UNabI3PbiwLywekabB8qtW7I1ydHClfK4SqQrC0davol6DRX/Mx9ksKnGNdowIAzFit0TIDt+NOobzvtoXxggLhjN3pA+tVJ7QH7FO71ueN9EAV0eonoLiOT1nll2dMB7OxHuHop9NbM2VxYdB3yRZlnkZj0/jrBMjJTlDtFQVhOyUWvKyiUbsgRwjzPrxpCKDahQP+I0Io7ankyAUg4eoxeoYstA4qUh8ZEsNeEBRhPzNjqmdD9QDUs/qpILPQgKlhZfTqY5ia1R6O0aUlbk7M4nmhUnTm96nsVQVhCJRJBAxt37Ch6ly1tQyIAx/ZHPon4v6whxCeZdgzAq+esfUkMp9cqKdbrEO79oP+RtsvO3kU3s2sQgnO0Hr53x4ySmIA44TzyrCDrtY3ks8ir3i4NTWrOTWgywrvRMRBzBM4xRFv/e8oCSD8KTCewGh9wJC7wWE3gsIvRcQeq+lEfLbVfJpX7JQgA3b5S2GoTJB0m+Q5Bcq5J7iTj7OToosli1ktubYhslcOt3Bn/Ulzy3DQR0PsJ1qWYSjZBqTLhRgsyvxvHLSU25O6QjzT7lzCLVatFi2kNmaYytKFwemO4ZB5pDxWws+cW1cSyKUt/ReZe5j8tu34haumoQWCHWNdIvSZQvqVjjPVrwTtNQdk972c26eXHXmbCasJREqD8yShQIcH79tkklC9eZnaxhstYN0Zc9L+XRaLjcI0hva2Tq0WLagbIXzbEXgv+218jvG6QIg79KwIkLxtOXLGIXMwuxlrCC8yo7bSRGOonuBGkL9GYHNsgVtAUORrXgjugGb2TFTHs/plxB5Ld+QPuENKTvzdKGA7Au1q1hBKNgpr5nxy+gOtskgkuUzb/Miz6xt9GCwpe1gkW39IzVa4DkPCS07nBmmz2KThQJyRMqSkO38MDkwRSa2ktdJ26UhHGiDmzoR8kY/j3Dy8Tvqk4EFnraS0NKTCtaRbd1RLu94iyUhq6jzXjL6UB8EhhmEu5kdYe6VuEw6NSJMn03obM97aQyjBZYeUVC1qX3a5sSVwTtE8XzX+Cw3XAKh1bKFAoSabboaStuRSb2NQsifymoLBfiMwBahsSHNzRJtli2EBQg12xRhuiNaLrF5CMXKyfO+GIyoCwV4EpYgVFYYPA3HvdzHJPS+0GbZQliAULdND0x2yFUb6qK/TekLh8lKg8xCATEtz/aF6uN4+VqdVESrhpVLP1eD5csWsltqHmm26YHKjrYSP9emjEjFcOZDceUqCwWiWf2PbWVEqiGUqxqSIu7kpvb5tWOlyxayW5mmULNNDzzPrNpQbqNuyrxwhaqhCmffVGgKN+XuzCq18Ed7chp/cFx+UJE25R7pStXo8x7vkpAkQv15oVNtzvNCiIyA0HsBofcCQu8FhN4LCL0XEHqvJRGeFSja8bpof7EKi6RnSCRWIATCua6A0IEhEALhXFdA6MAQCIFwrisgdGBYEWGJXq+kVMgoZKEXLtGQ1mtIJFYgBMK5roDQgSEQAuE8V8HrIKgjSKKGRGJdIUKG77X4v3KQRA2JxLo6hBydaEgXg0ijWqi6bAjhYhBpVAtVl04RCmrJcMYeIo1qoerSJUKJTBmR2jKkUS1UXTaK0JYhjWqh6tIhwohXZl5o15jSqBaqLhtGaJeINKqFqsvGEdokIo1qoerSHcKg8AZbKUMa1ULVJQWEpQxpVAtVlyQQljWmNKqFqksaCEsSkUa1UHVJBeHcRKRRLVRdOkMYlD4vLIZIo1qouiSEsLg1pVEtVF2SQljEkEa1UHVJC2EBQxrVQtUlMYRmhjSqhapLagiNgxoa1ULVpSuEwZklQlMi0qgWqi4JIswnIo1qoeqSIsJcItKoFqouaSLUEpFGtVB1SRRhFiKNaqHqkixCtTWlUS1UXRJGmDKkUS1UXVJGmDCkUS1UXZJGGHeINKqFqkvaCCOINKqFqkvqCAVEGtVC1SV9hIt/lk05E+eGQFgQ5LIQgbAc1+V+98ZBGE4fdG+drhCh/SdocobLaYMQHu6Fb26dXu7vhSe3V4pwudYUCEsJTh8dxX8uPjtaKcKlIAJhKcKLe894Q3px7zScPmQNanidyXhkWlaFL/AK8FXTC8oC4d09zo+1pRFCLuOlUkMWRsUsZ7i0R2eWDWThYbd7O0q/NAtXjZD89yx4hZBr+liwc9MXxiWR/p4F7xDyESlLwcv9+ysfkaplEf6eBf8QsgnhzSMX80KtNLIf0vcPoUlGP/Ui5BBpfsIbCO2DJPoJbyC0D1IUSu/jwUBoH2RULLWPBwOhfZBJwfMgAqEPCOeObIDQD4RnxakIhN4gLIIIhB4hNLenQOgVwjMSH4kCQvsgzdIgAqF/CEV72uSHMdYXobKg18HvVCQYgdBXhMJjM8vAgdA+yHI1sgwcCO2DtJHdE6k6PQLhAkFaGi5JEQhzagzhmTZGXbVHILQPcjHDRSkCYU5NIzxbMBmBMCcCCEUYK183BYT2QS5raJeMQJgTHYQimlKMQJgTLYRc8ykCYU70EJ7NTUYgzIkkQq4CikCYE1mEZ+ZkBMKcKCPk0imuHcJJL4h15cVaIjyTyVj9QSNVhFxDDm/S213PLFQkKK4jwgjeaH2zUNEyN8YrugTC+g2XpUgXYdyQdkoJrgnCs6R3dOmyLkMjwnDET8eiK1wfhJEWw0gZobVMbnxGyGWfkM3HKt4DwqXvjxOJ1YxwyOO36ArXGSFXSULSiNWI0H44Y5JSVIUv8KKkiGTTYZRooycVlsolJI1YgXAxw0zTSiNWE8JNnBcuqKWmkdVcFhoaEdoPZ15DjcuM0FqmK2UTsjBruXBOYl5IxFC3bOiegBkh5oUVLC1IYjhDxHC+ZZCqPpeYVNRraG2ZIwmERAwXtUxJoiElYrik5bwWdhmPRoQYzjhyuTBNTCrqNazVpR1MIKzXcEUuFx3KGhGO22u+jrQew9W7zNG0RTjrt5CF1FzOyUwDQqtFwEBIJVZzFgIhUZfWfaHNpB4IqcSaQ7gRH4upx5BIrMYstJfJDRC6NQTC9UPIhqNxW4qGlJxLZGG9hkRiBcL1Q4gRKWWXyMJ6DYnECoRrinAYBLvD7WMgpObSGuFg+6fertXzCpMbIHRraEIopoa7WP5E0CUQ1mtIJFYTwnDIG1KsYCPo0n44M8IKNpouMamo15BIrEC4lggnfxN/Zr/DcIaaS/sRKe8GB7hHSs+ldUM6bneGwdbTUoBGhIHiCggdGBoR8scV+UVsl/vdGwdheHG3290DwmZcLjCcmfTyd9cO98I3t06nDw/Ci08PgLARl9WeF04fHfE/b25LmkBIJdaCLDTo4t4z0ZBymg/53+tMhuPUktbkC7z8kAXCu3sM42nIO8X78ZuGiwJZ6Ngwh9C4gu2w273N8Yn0mz5ICAIhAUP7LJw+lgh5NgJhQy4XRKg/bDoUDWmGIBASMFwA4fRB9+ZReNLlwoi0GZcVEZpkKBEIHRsCIRDmBISODYFw/RBWXpAPhI4N52ShjQwlAqFjQyAEwpyA0LEhEAJhTkDo2BAI1xJhOq8o/WyToUQgdGxozML4W4HLP59mKBEIHRuaszD+bu7SGzSGEoHQsSEQriXC9OvVSz+sbSgRCB0bGhHGP8c8LF3RbSgRCB0bmhFay1AiEDo2BMI1RVjldyqA0LGhEWGlX4sBQseGJoTVfrMJCB0bAuFaIkRDStYlhjP1GhKJ1YzQWoYSgdCx4RyE6AvpuQTCeg2JxAqEQJgTEDo2BEIgzAkIHRvmEOIzFZRdYl5YryGRWIEQCHMCQseGQAiEOQGhY8OKCA3Cd7A1JEwqvHCJhrReQyKxAuF6Ihy30ZDSdGmLcNbvzPq70SIoIKTk0hYhhzfohCOLHzA0lAiEjg2LEA5beFJB0KV1XzgQ/Gx+RtRQIhA6NjQiZJ1hOLD6rRFDiUDo2NCI0F6GEoHQsSEQrh9C4zfkAyERl8jCeg2JxGpCiE82kXXpBGGgugJCB4Z5hMPkYVPp13cBIQXDOVloo3yBQOja0IRw1gdCoi6RhfUaEonVhLD8e7uAsCGX9llYYWoPhK4NjVlor3yBQOjaEAjXE2GVtTNA6NrQhLDS2hkgdG1oQlhp7QwQujYsQrj02hkgdG1oQlhp7QwQujY0IqyydgYIXRsaEdorXyAQujYEwnVEOLCaEQIhlVjzCAdsFDO0ZZgvEAhdG+YQioeF1k8M8wUCoWvDHEJxU4YPSYGQoEsgrNeQSKxACIS6gNC1oQFhtW+8AELXhjmExbrc7944kBt7QNiMy4oID/fCN7dO2cZJFwgbclkN4fTRkdy4+PwLIGzIZTWEF/eeiYb08quvZUN6nSl/WKYgfIGXQ1kgvLvHMJ6GJ/fRFzbmcvksPOx2b3N804cH7A8QNuayYl/4WCA86XLdB8JGXFYfkfJMxKSiQZcVEU4fdG+KQSkQNuayIkKT8gUCoWtDIARCXUDo2hAIgVAXELo2BEIg1AWErg2BEAh1AaFrQyAEQl1A6NoQCIFQFxC6NgRCINQFhK4NgRAIdQGha0MgBEJdQOjaEAiBUBcQujYEQiDUBYSuDYEQCHUBoWtDIARCXUDo2hAIgVAXELo2BEIg1BRkXAGhA0MgBEJNQOjcEAiBUBMQOjcEQiDUBITODSsizClbDr7Ay6GQhV64RENaryGRWIEQCDUBoXNDIARCTUDo3BAIgVATEDo3BEIg1ASEzg2BEAg1AaFzQyAEQk1A6NwQCIFQExA6NwRCINQEhM4NgRAINQGhc0MgBEJNQOjcEAiBcK4rIHRgCIRAONcVEDowBEIgnOsKCB0YAiEQznUFhA4MgRAI57oCQgeGQAiEc10BoQNDIATCua6A0IEhEG46wiJdr7c4uLTwCIReuARC710CofcuHSKE3AsIvRcQei8g9F5A6L1qQjh90L11qm2tWKmji7vd7p5bl2F4ue/CZerxcr9748B4TD0I+fmc3M5urVipo+nDg/DiU/Pprcgl04mLq0bxeLgXvjHnRj0Ip4+OwovPjjJbK1bq6A0/x0MHFaqe28XnXzj1yLcKVA/Ci3unIhnUrRUr68i1y8uvvnbRkKr1+my1DSlPcekq3VqxMo4u9++v3qPq8uS+k74w9Xhxd08ANWgtsnD6wAXB7Fk6QWhVr2vQF4or1IVSlyddrtVfN0q9Pl4xQt6QxSPS+65GpLEjVwSz5+YkCxWPhytuSKP5C79gHM8LmUuZEu5maTItXM4Lo3q9aW7ccHfGewGh9wJC7wWE3gsIvRcQei8g9F5A6L02COH4rafZN86fNxNIzdpghDmkngoIvddGIfxLEGwfh+GsHwRXXozbQdAJ+f/sj8/aJITt7eNZvxXyf+Fw+5hn4aS3y7avvGg6tiraKIS7ovUccWKMHUf4v+PQ+xZ1kxC+LdENA6GOJDdim1tA6IcShLw/DGXyTXoMH7LQFwlSvCGNko6/HnGcI2ShJ0qHM4wbw8aHMpzeuA2EnkhMKthgVEwqOLUBezVgm//kw1J/tUEI11VA6L2A0HsBofcCQu8FhN4LCL3X/wF+fULZGjCMqwAAAABJRU5ErkJggg==" />
+
+</div>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
 </div>
 </div>
 </div>
