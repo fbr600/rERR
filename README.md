@@ -46,7 +46,7 @@ where ![](http://mathurl.com/y7ekq4k8.png) are the covariates.
 
 This package is an R impelementation of models that are rarely implemented outside Epicure: the Linear Excess Relative Risk model 
 allowing time dependent covariates, time dependent adjustments, lagged exposures and stratification.
-
+[back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
 
 ## Installing
 
