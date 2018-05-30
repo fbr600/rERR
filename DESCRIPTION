@@ -9,9 +9,15 @@ License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-Imports: survival, stats4, plyr, dplyr, reshape2, numDeriv, ggplot2
+Imports: survival,
+    stats4,
+    plyr,
+    dplyr,
+    reshape2,
+    numDeriv,
+    ggplot2
 Maintainer: Francesc Badia Roca <francesc.badia@isglobal.org>
-Suggests: testthat, knitr, rmarkdown
+Suggests: testthat,
+    knitr,
+    rmarkdown
 VignetteBuilder: knitr
-NeedsCompilation: yes
-Packaged: 2018-05-29 10:39:07 UTC; fbadia
