@@ -515,5 +515,5 @@ f_plot_linERR_ef(fit1,formula1,data=cohort_ef,id_name="id",dose_name="dose",
 
 And it appears the following plot:
 
-![](https://s14.postimg.cc/xd9dvne5t/image.png)
+![](https://image.ibb.co/nqqQXd/Rplot.png)
 
