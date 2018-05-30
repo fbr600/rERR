@@ -11,7 +11,7 @@ fit Excess Relative Risk model
   + [Using a wide format data set as input cohort](https://github.com/fbr600/rERR#using-a-wide-format-data-set-as-input-cohort)
   + [Save time in multi analysis of the same data set](https://github.com/fbr600/rERR#save-time-in-multi-analysis-of-the-same-data-set)
   + [Using Categorical Exposure](https://github.com/fbr600/rERR#using-categorical-exposure)
-  + [Plot the partial log likelihood function]
+  + [Plot the partial log likelihood function](https://github.com/fbr600/rERR/blob/master/README.md#plot-the-partial-log-likelihood-function)
   
 ## Introduction
 
