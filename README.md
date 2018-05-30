@@ -11,6 +11,7 @@ fit Excess Relative Risk model
   + [Using a wide format data set as input cohort](https://github.com/fbr600/rERR#using-a-wide-format-data-set-as-input-cohort)
   + [Save time in multi analysis of the same data set](https://github.com/fbr600/rERR#save-time-in-multi-analysis-of-the-same-data-set)
   + [Using Categorical Exposure](https://github.com/fbr600/rERR#using-categorical-exposure)
+  + [Plot the partial log likelihood function]
   
 ## Introduction
 
@@ -494,3 +495,25 @@ AIC:  305.9834
 Deviance:  297.9834 
 Number of risk sets:  18
 ```
+
+### Plot the partial log likelihood function
+
+There is an option to display the shape of the log likelihood function:
+
+```
+# set the formulas for the models
+formula1  <- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
+
+# fit the model
+fit1 <- f_fit_linERR_ef(formula1,data=cohort_ef,id_name="id",dose_name="dose",
+                        time_name="age",covars_names=c("sex"),lag=2,exclusion_done=TRUE)
+
+# plot the partial loglikelihood function
+f_plot_linERR_ef(fit1,formula1,data=cohort_ef,id_name="id",dose_name="dose",
+                 time_name="age",covars_names=c("sex"),lag=2,exclusion_done=TRUE)
+```
+
+And it appears the following plot:
+
+![](https://s14.postimg.cc/xd9dvne5t/image.png)
+
