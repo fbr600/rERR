@@ -529,3 +529,15 @@ And it appears the following plot:
 ![](https://image.ibb.co/nqqQXd/Rplot.png)
 
 [back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
+
+## References
+
+B. Langholz and D. B. Richardson. 
+*Fitting general relative risk models for survival time and matched case-control analysis.*
+American journal of epidemiology, 171(3):377-383, 2010. 
+
+D. L. Preston, J. H. Lubin, D. A. Pierce, and M. E. McConney. 
+*Epicure: User's Guide.*
+HiroSoft International Corporation, Seattle, WA, 1993. 
+
+[back](https://github.com/fbr600/rERR/blob/master/README.md#rerr-package)
