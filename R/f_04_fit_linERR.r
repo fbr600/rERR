@@ -121,8 +121,8 @@ f_fit_linERR <- function(formula,data,rsets,n_lin_vars,n_loglin_vars,id_name,tim
     return(do.call(p.est,x))
   }
   suppressWarnings(
-  while(is.na(numDeriv::hessian(p.est_num,llim2*reduction)))
-    reduction <- reduction^2
+    while (any(is.na(diag(numDeriv::hessian(p.est_num, llim2 * reduction))))) 
+      reduction <- reduction^2
   )
   
   # optimization
