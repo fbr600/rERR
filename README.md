@@ -52,6 +52,13 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
 
 ## Installing
 
+* Available at CRAN, it requires compilation:
+
+  ```
+  install.packages("rERR")
+  library(rERR)
+  ```
+
 * With compilation of source code: it requires Rtools installed in your computer
   
   The package can be installed directly in RStudio from github:
