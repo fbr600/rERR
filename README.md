@@ -52,7 +52,7 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
 
 ## Installing
 
-* Available at CRAN, it requires compilation:
+* Available at CRAN:
 
   ```
   install.packages("rERR")
