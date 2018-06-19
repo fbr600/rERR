@@ -94,7 +94,7 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
   where f(dose) is the cumulative dose of each subject up to the relative fail time.
 
 * Also the covariates effect can be included in the model:
-  ```
+  ```r
   formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum)
   ```
   This is the formula of the model:
@@ -104,7 +104,7 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
   where ![](http://mathurl.com/y7ekq4k8.png) are the different countries.
 
 * Stratification in the risksets is done by using the ``` strata()``` function:
-  ```
+  ```r
   formula <- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum) + strata(sex) 
   ```
   Is the same model as before, but in the risksets only the subjects of the same sex as the case are taken as in-risk-subjects.
@@ -142,11 +142,11 @@ Two different formats of data sets are allowed:
 ### Using an event format data set as input cohort
 
 ##### load library
-```
+```r
 > library(rERR)
 ```
 ##### look at the data set
-```
+```r
 > head(cohort_ef,row.names=F)
  id sex entry_age exit_age outcome  age     dose country
  10   2      9.88 12.53114       0 7.88 15.80825      Be
@@ -158,19 +158,19 @@ Two different formats of data sets are allowed:
  ```
 
 ##### set the formulas for two models
- ```
+ ```r
 > formula1  <- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
 > formula2  <- Surv(entry_age,exit_age,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
 ```
 
 ##### fit the models
-```
+```r
 > fit1 <- f_fit_linERR_ef(formula1,data=cohort_ef,id_name="id",dose_name="dose",time_name="age",covars_names=c("sex"),lag=2,exclusion_done=T)
 > fit2 <- f_fit_linERR_ef(formula2,data=cohort_ef,id_name="id",dose_name="dose",time_name="age",covars_names=c("sex","country"),lag=2,exclusion_done=T)
 ```
 
 ##### summary of fit1
-```
+```r
 > summary(fit1)
 Formula:
 Surv(entry_age, exit_age, outcome) ~ lin(dose_cum) + strata(sex)
@@ -185,7 +185,7 @@ Number of risk sets:  18
 ```
 
 ##### summary of fit2
-```
+```r
 > summary(fit2)
 Formula:
 Surv(entry_age, exit_age, outcome) ~ loglin(factor(country)) + 
@@ -209,7 +209,7 @@ Number of risk sets:  18
 ```
 
 ##### confidence intervals for fit1 parameters
-```
+```r
 > confint(fit1)
 Confidence intervals:
 
@@ -219,7 +219,7 @@ dose_cum 0.02401129 -0.01109805 0.8468688
 ```
 
 ##### confidence intervals for fit2 parameters
-```
+```r
 > confint(fit2)
 Confidence intervals:
 
@@ -237,7 +237,7 @@ country_UK 0.69520396  2.004118 0.3670159 10.943634
 ```
 
 ##### likelihood ratio test between nested and nesting models
-```
+```r
 > f_lrt(fit1,fit2)
 $lrt
 [1] 1.916819
@@ -249,11 +249,11 @@ $lrt_pval
 
 ### Using a wide format data set as input cohort
 ##### load library
-```
+```r
 > library(rERR)
 ```
 ##### look at the data set
-```
+```r
 > head(cohort_wf)
 id sex YearInit AgeAtEntry age_at_event outcome end_status ses number_of_ct    ctage1 ctage2 ... ctage35 dose1 dose2 ... dose35 country
  1   1     1983   7.957093    18.957093       0          2   1            1  7.957093      0           0  10.5     0          0      It
@@ -265,13 +265,13 @@ id sex YearInit AgeAtEntry age_at_event outcome end_status ses number_of_ct    c
 ```
 
 ##### set the formulas for the models
-```
+```r
 > formula1  <- Surv(AgeAtEntry,age_at_event,outcome) ~ lin(dose_cum) + strata(sex)
 > formula2  <- Surv(AgeAtEntry,age_at_event,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
 ```
 
 ##### fit the models
-```
+```r
 > fit1 <- f_fit_linERR_wf(formula1,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],times=cohort_wf[,10:44],
                           covars=cohort_wf[,c("sex","country")],lag=2,exclusion_done = F)
 
@@ -280,7 +280,7 @@ id sex YearInit AgeAtEntry age_at_event outcome end_status ses number_of_ct    c
 ```
 
 ##### summary of fit1
-```
+```r
 > summary(fit1)
 Formula:
 Surv(AgeAtEntry, age_at_event, outcome) ~ lin(dose_cum) + strata(sex)
@@ -294,7 +294,7 @@ Deviance:  597.129
 Number of risk sets:  34
 ```
 ##### summary of fit2
-```
+```r
 > summary(fit2)
 Formula:
 Surv(AgeAtEntry, age_at_event, outcome) ~ loglin(factor(country)) + 
@@ -318,7 +318,7 @@ Number of risk sets:  34
 ```
 
 ##### confidence intervals for fit1 parameters
-```
+```r
 > confint(fit1)
 Confidence intervals:
 
@@ -328,7 +328,7 @@ dose_cum 0.03882416 -0.003425317  0.278199
 ```
 
 ##### confidence intervals for fit2 parameters
-```
+```r
 > confint(fit2)
 Confidence intervals:
 
@@ -346,7 +346,7 @@ country_UK  -0.159932110 8.522016e-01 0.2862843  2.536806
 ```
 
 ##### likelihood ratio test between nested and nesting models
-```
+```r
 > f_lrt(fit1,fit2)
 $lrt
 [1] 15.53904
@@ -369,7 +369,7 @@ The process can be splitted in three blocs:
 * Transform de data
 * fit the model
 
-```
+```r
 f_fit_linERR_ef <- function (formula, data, id_name, dose_name, time_name, covars_names,lag,exclusion_done=F) 
 {
   # exclude subjects with the follow-up shorter than lag (lattency period) time
@@ -401,7 +401,7 @@ f_fit_linERR_ef <- function (formula, data, id_name, dose_name, time_name, covar
 ```
 
 Then if the exclusion and the data transfomration are common in two analysis, we do not have to do it twice:
-```
+```r
 # specify the models we want to run
 > formula1       <- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
 > formula2       <- Surv(entry_age,exit_age,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
@@ -444,18 +444,18 @@ To do this the whole process can be broken in three main steps:
  
  Set the formula for the transformation and for the further categorical model, take into account that *dose_cat* still not exist, later on will be created:
  
- ```
+ ```r
  > formula <- Surv(entry_age,exit_age,outcome) ~ loglin(dose_cat)+strata(sex)
  ```
  
  Then run the transormation part, 
- ```
+ ```r
  > dt1 <- f_to_event_table_ef_all(formula,data = cohort_ef,id_name = "id",dose_name = "dose",
                                 time_name = "age",covars_names = c("sex","country"))
 ```                      
 
 Look at the new data set:
-```
+```r
 > head(dt1)
 # A tibble: 6 x 13
 # Groups:   id_ [3]
@@ -474,7 +474,7 @@ Look at the new data set:
 The variable that will be categorized is *dose_cum* which is the cumulative dose at time *age*.
 To decide what are the more appropiate cutoffs for the exposure levels usually basic descriptives are used:
 
-```
+```r
 > summary(dt1$dose_cum)
 > hist(log(dt1$dose_cum))
 ```
@@ -483,7 +483,7 @@ More accurate cutoffs can be described if only look at the doses that will be in
 
 After see the distributions of several sets of cutoffs, select the choice:
 
-```
+```r
 > dt1$dose_cat <- cut(dt1$dose_cum, breaks = c(0,5,10,25,100,1000), right=F )
 > plyr::count(dt1$dose_cat)
             x  freq
@@ -495,7 +495,7 @@ After see the distributions of several sets of cutoffs, select the choice:
 ````
 Fit the model
 
-```
+```r
 > fit <- f_fit_linERR_all(formula,data=dt1,id_name = "id",time_name = "age",lag = 2)
 > summary(fit)
 Formula:
@@ -519,7 +519,7 @@ Number of risk sets:  18
 
 There is an option to display the shape of the log likelihood function:
 
-```
+```r
 # set the formulas for the models
 formula1  <- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
 
