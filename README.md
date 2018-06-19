@@ -54,7 +54,7 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
 
 * Available at CRAN:
 
-  ```
+  ```r
   install.packages("rERR")
   library(rERR)
   ```
@@ -63,7 +63,7 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
   
   The package can be installed directly in RStudio from github:
 
-  ```
+  ```r
   install.packages("devtools")
   devtools::install_github("fbr600/rERR")
   ```
@@ -73,7 +73,7 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
   
   Change the path to the download folder in the following code and run it in RStudio:
   
-  ```
+  ```r
   install.packages("path_to_downloads_folder/rERR.zip", repos = NULL, type = "win.binary")
   install.packages("devtools")
   devtools::install_deps(paste0(.libPaths(),"/rERR"))
@@ -84,7 +84,7 @@ allowing time dependent covariates, time dependent adjustments, lagged exposures
 
 * The ERR model is specified using a formula object in R
 
-  ```
+  ```r
   formula <- Surv(entry_time,exit_time,outcome) ~ lin(dose_cum)
   ```
   This is the formula for the model:
