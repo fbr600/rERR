@@ -1,6 +1,6 @@
 # rERR package
 
-fit Excess Relative Risk model
+fit Excess Relative Risk model - R package
 
 * [Introduction](https://github.com/fbr600/rERR#introduction)
 * [Installing](https://github.com/fbr600/rERR#installing)
